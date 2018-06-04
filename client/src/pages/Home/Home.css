@@ -7,3 +7,11 @@
 .values {
     color: green;
 }
+.dailySets {
+    padding: 0px;
+    margin: 0px 0px;
+}
+.macs,.cals {
+    border-top-width: 1px;
+    border-color: black;
+}

@@ -8,55 +8,44 @@ const Home = (props) => (
             <div className="col-md-10 mr-auto ml-auto text-left">
                 <h4>Welcome: FirstName</h4>
                 <div className="row">
-                    <div className="col-md-6 stats">
+                    <div className="col-md-12 stats">
                         <div className="card">
                             <div className="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <h5 className="card-subtitle mb-2 keys">Macros:</h5>
-                                        <p className="keys">Fat: <span className="values">65g</span></p>
-                                        <p className="keys">Protein: <span className="values">165g</span></p>
-                                        <p className="keys">Carbs: <span className="values">240g</span></p>
-                                    </li>
-                                </ul>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <h5 className="card-subtitle mb-2 keys">Calories:</h5>
-                                        <p className="keys">Fat: <span className="values">585</span></p>
-                                        <p className="keys">Protein: <span className="values">640</span></p>
-                                        <p className="keys">Total: <span className="values">1225</span></p>
+                                <h5 className="card-subtitle mb-2 keys">Macros:</h5>
+                                    <div className="macs">
+                                        <div className="form-group row dailySets keys">
+                                            <div className="col-sm-6 keys">Fat:</div>
+                                            <div className="col-sm-6 text-right"><span className="values">65</span><span className="setVals">/DV grams</span></div>
+                                        </div>
+                                        <div className="form-group row dailySets keys">
+                                            <div className="col-sm-6 keys">Protein: </div>
+                                            <div className="col-sm-6 text-right"><span className="values">165</span><span className="setVals">/DV grams</span></div>
+                                        </div>
+                                        <div className="form-group row dailySets keys">
+                                            <div className="col-sm-6 keys">Carbs: </div>
+                                            <div className="col-sm-6 text-right"><span className="values">260</span><span className="setVals">/DV grams</span></div>
+                                        </div>
+                                    </div>
 
-                                        <p className="keys">Maintenance: <span className="values">2200</span></p>
-                                    </li>
-                                </ul>
+                                <h5 className="card-subtitle mb-2 mt-2 keys">Calories:</h5>
+                                <div className="cals">
+                                    <div className="form-group row dailySets keys">
+                                        <div className="col-sm-6 keys">Fat:</div>
+                                        <div className="col-sm-6 text-right"><span className="values">565</span><span className="setVals">/DV cals</span></div>
+                                    </div>
+                                    <div className="form-group row dailySets keys">
+                                        <div className="col-sm-6 keys">Protein:</div>
+                                        <div className="col-sm-6 text-right"><span className="values">660</span><span className="setVals">/DV cals</span></div>
+                                    </div>
+                                    <div className="form-group row dailySets keys">
+                                        <div className="col-sm-6 keys">Total:</div>
+                                        <div className="col-sm-6 text-right"><span className="values">1225</span><span className="setVals">/Maint cals</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-md-6 settings">
-                        <div className="card">
-                            <div className="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <h5 className="card-subtitle mb-2 keys">Macros:</h5>
-                                        <p className="keys">Fat: <span className="values">65g</span></p>
-                                        <p className="keys">Protein: <span className="values">165g</span></p>
-                                        <p className="keys">Carbs: <span className="values">240g</span></p>
-                                    </li>
-                                </ul>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <h5 className="card-subtitle mb-2 keys">Calories:</h5>
-                                        <p className="keys">Fat: <span className="values">585</span></p>
-                                        <p className="keys">Protein: <span className="values">640</span></p>
-                                        <p className="keys">Total: <span className="values">1225</span></p>
-
-                                        <p className="keys">Maintenance: <span className="values">2200</span></p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <p>The user should be redirected here if they're logged in or after initial session login.</p>
             </div>
