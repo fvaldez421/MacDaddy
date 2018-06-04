@@ -11,14 +11,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
+        <Header />
         <Router>
           <div>
-          <Route exact path="/" component={Welcome} />
-          <Route exact path="/home" component={Home} /> 
-          {/* Home route will be changed to "/" after Oauth and redirect implementation */}
-          <Route exact path="/meals" component={Meals} /> 
-          <Route exact path="/me" component={UserInfo} />
+            <Route exact path="/" component={Welcome} />
+            <Route path="/home" component={Home} />
+            {/* Home route will be changed to "/" after Oauth and redirect implementation */}
+            <Route exact path="/meals" component={Meals} />
+            <Route exact path="/me" component={UserInfo} />
           </div>
         </Router>
       </div>

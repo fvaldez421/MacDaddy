@@ -9,9 +9,9 @@ const Welcome = (props) => (
                 <h3>This is the Welcome Page Content</h3>
             </div>
             <div className="col-md-10 mr-auto ml-auto">
-                <Link to="/Home" className="btn btn-primary">Home (After Login)</Link>
-                <Link to="/Meals" className="btn btn-danger">Meals (Enter and track meals)</Link>
-                <Link to="/Me" className="btn btn-secondary">My Info (After Login)</Link>
+                <Link to="/home" className="btn btn-primary">Home (After Login)</Link>
+                <Link to="/meals" className="btn btn-danger">Meals (Enter and track meals)</Link>
+                <Link to="/me" className="btn btn-secondary">My Info (After Login)</Link>
             </div>
         </div>
     </div>
