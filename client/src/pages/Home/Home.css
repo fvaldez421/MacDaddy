@@ -1,0 +1,9 @@
+.card {
+    justify-content: left;
+}
+.keys {
+    font-weight: 600;
+}
+.values {
+    color: green;
+}
