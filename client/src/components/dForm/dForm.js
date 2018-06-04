@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import './uForm.css';
+import './dForm.css';
 import { Link } from "react-router-dom";
 
-class uForm extends Component {
+class dForm extends Component {
     state = {
+        fatMac: "",
+        proMac: "",
+        carbMac: "",
+        fatCal: "",
+        proCal: "",
+        maintCal: "",
+        tarCal: ""
     }
     
     handleInputChange = event => {    
@@ -124,6 +131,6 @@ class uForm extends Component {
     }
 }
 
-export default uForm;
+export default dForm;
 
 

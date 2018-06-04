@@ -17,7 +17,7 @@ class App extends Component {
             <Route exact path="/" component={Welcome} />
             <Route path="/home" component={Home} />
             {/* Home route will be changed to "/" after Oauth and redirect implementation */}
-            <Route exact path="/meals" component={Meals} />
+            <Route path="/meals" component={Meals} />
             <Route exact path="/me" component={UserInfo} />
           </div>
         </Router>

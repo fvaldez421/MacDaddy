@@ -1,9 +1,15 @@
 import React, { Component } from "react";
-import './uForm.css';
+import './dForm.css';
 import { Link } from "react-router-dom";
 
-class uForm extends Component {
+class mForm extends Component {
     state = {
+        name: "",
+        fatMac: "",
+        proMac: "",
+        carbMac: "",
+        fatCal: "",
+        proCal: ""
     }
     
     handleInputChange = event => {    
@@ -21,6 +27,19 @@ class uForm extends Component {
                     <div className="card-body">
                         <h5 className="card-subtitle mb-2 keys">Macros:</h5>
                         <form>
+                        <div className="form-group row dailySets">
+                                <label htmlFor="name" className="col-sm-8 keys">Name:</label>
+                                <div className="col-sm-4">
+                                    <input 
+                                        type="text" 
+                                        name="name"
+                                        value={this.state.name}
+                                        onChange={this.handleInputChange} 
+                                        className="form-control dailySets" 
+                                        placeholder="Meal Name"
+                                    />
+                                </div>
+                            </div>
                             <div className="form-group row dailySets">
                                 <label htmlFor="fatMac" className="col-sm-8 keys">Fat:</label>
                                 <div className="col-sm-4">
@@ -124,6 +143,6 @@ class uForm extends Component {
     }
 }
 
-export default uForm;
+export default mForm;
 
 
