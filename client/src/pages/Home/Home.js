@@ -4,6 +4,9 @@ import './Home.css';
 import { Link, Route } from "react-router-dom";
 
 class Home extends Component {
+    componentDidMount() {
+        console.log(this.props);
+    }
     render() {
         return (
             <div className="container">
@@ -15,7 +18,7 @@ class Home extends Component {
                 </div>
                 <div className="row">
                     <div className="col-md-10 mr-auto ml-auto text-left">
-                        <h4>Welcome: FirstName!</h4>
+                        <h4>Welcome: {this.props.firstName}!</h4>
                         <h5 className="keys">Today: </h5>
                         <div className="row">
                             <div className="col-md-12 stats">
@@ -55,13 +58,13 @@ class Home extends Component {
                                                 <div className="col-sm-6 text-right"><span className="values">2225 CAL</span></div>
                                             </div>
                                         </div>
-                                        <Link to={`${this.props.match.url}/dForm`} className="btn btn-danger">Change Daily Settings</Link>
+                                        {/* <Link to={`${this.props.match.url}/dForm`} className="btn btn-danger">Change Daily Settings</Link> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            <Route exact path={`${this.props.match.url}/dForm`} component={dForm} />
+                            {/* <Route exact path={`${this.props.match.url}/dForm`} component={dForm} /> */}
                         </div>
                         <p>The user should be redirected here if they're logged in or after initial session login.</p>
                     </div>
