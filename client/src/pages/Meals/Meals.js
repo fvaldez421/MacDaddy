@@ -13,6 +13,7 @@ class Meals extends Component {
                 name: "Fried Chicken",
                 id: "8765434567",
                 date: "6/3/18 4:35 pm",
+                details: "KFC two piece, leg and thigh with some mashed potates",
                 fatMac: "20",
                 proMac: "80",
                 carbMac: "120",
@@ -23,6 +24,7 @@ class Meals extends Component {
                 name: "Pizza",
                 id: "4598722233",
                 date: "6/3/18 6:20 pm",
+                details: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
                 fatMac: "80",
                 proMac: "50",
                 carbMac: "600",
@@ -35,8 +37,15 @@ class Meals extends Component {
         return (
             <div className="container">
                 <div className="row">
+                    <div className="col-md-10 mr-auto ml-auto mb-3">
+                        <Link to="/Home" className="btn btn-primary">Home (After Login)</Link>
+                        <Link to="/Me" className="btn btn-secondary">My Info (After Login)</Link>
+                    </div>
+                </div>
+                <div className="row">
                     <div className="col-md-6">
                         <div className="card">
+                        <ul className="list-group list-group-flush">
                         <h4 className="card-header">Meals</h4>
                         {
                             this.state.food.map((meal, i) => (
@@ -46,6 +55,7 @@ class Meals extends Component {
                                     name={meal.name}
                                     id={meal.id}
                                     date={meal.date}
+                                    details={meal.details}
                                     fatMac={meal.fatMac}
                                     proMac={meal.proMac}
                                     carbMac={meal.carbMac}
@@ -59,19 +69,14 @@ class Meals extends Component {
 
                             ))
                         }
+                        </ul>
                         </div>
                     </div>
                     <div className="col-md-6">
                         <MealForm />
                     </div>
                 </div>
-                
-                <div className="row">
-                    <div className="col-md-10 mr-auto ml-auto">
-                        <Link to="/Home" className="btn btn-primary">Home (After Login)</Link>
-                        <Link to="/Me" className="btn btn-secondary">My Info (After Login)</Link>
-                    </div>
-                </div>
+            
             </div>
         )
     }

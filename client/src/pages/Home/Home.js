@@ -7,9 +7,16 @@ class Home extends Component {
     render() {
         return (
             <div className="container">
-                <div className="row ">
+                <div className="row">
+                    <div className="col-md-10 mr-auto ml-auto mb-3">
+                        <Link to="/meals" className="btn btn-danger">Meals (Enter and track meals)</Link>
+                        <Link to="/me" className="btn btn-secondary">My Info (After Login)</Link>
+                    </div>
+                </div>
+                <div className="row">
                     <div className="col-md-10 mr-auto ml-auto text-left">
                         <h4>Welcome: FirstName!</h4>
+                        <h5 className="keys">Today: </h5>
                         <div className="row">
                             <div className="col-md-12 stats">
                                 <div className="card">
@@ -57,10 +64,6 @@ class Home extends Component {
                             <Route exact path={`${this.props.match.url}/dForm`} component={dForm} />
                         </div>
                         <p>The user should be redirected here if they're logged in or after initial session login.</p>
-                    </div>
-                    <div className="col-md-10 mr-auto ml-auto">
-                        <Link to="/meals" className="btn btn-danger mb-5">Meals (Enter and track meals)</Link>
-                        <Link to="/me" className="btn btn-secondary mb-5">My Info (After Login)</Link>
                     </div>
                 </div>
             </div>
