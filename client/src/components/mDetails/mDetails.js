@@ -8,10 +8,9 @@ class mDetails extends Component {
     }
     render() {
         return (
-            <div className="row">
-                <div className="col-md-10">
-                    <h3>{this.props.match.params.id}</h3>
-                </div>
+            <div className="col-md-10">
+                <h3>{this.props.match.params.id}</h3>
+                <h4>This is Meal Details</h4>
             </div>
         )
     }

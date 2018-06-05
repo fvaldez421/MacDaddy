@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './dForm.css';
+import './mForm.css';
 import { Link } from "react-router-dom";
 
 class mForm extends Component {
@@ -22,14 +22,13 @@ class mForm extends Component {
     
     render() {
         return (
-            <div className="col-md-12 settings">
+            <div className="settings text-left">
                 <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-subtitle mb-2 keys">Macros:</h5>
-                        <form>
-                        <div className="form-group row dailySets">
-                                <label htmlFor="name" className="col-sm-8 keys">Name:</label>
-                                <div className="col-sm-4">
+                    <h4 className="card-header">New meal</h4>
+                        <div className="list-group-item">
+                            <div className="row">
+                                <h5 htmlFor="name" className="col-sm-4 keys">Name:</h5>
+                                <div className="col-sm-8">
                                     <input 
                                         type="text" 
                                         name="name"
@@ -40,6 +39,9 @@ class mForm extends Component {
                                     />
                                 </div>
                             </div>
+                        </div>
+                        <div className="list-group-item">
+                            <h5 className="card-subtitle mb-2 keys">Macros:</h5>
                             <div className="form-group row dailySets">
                                 <label htmlFor="fatMac" className="col-sm-8 keys">Fat:</label>
                                 <div className="col-sm-4">
@@ -79,9 +81,9 @@ class mForm extends Component {
                                     />
                                 </div>
                             </div>
-                        </form>
-                        <h5 className="card-subtitle mb-2 mt-2 keys">Calories:</h5>
-                        <form>
+                        </div>
+                        <div className="list-group-item">
+                            <h5 className="card-subtitle mb-2 mt-2 keys">Calories:</h5>
                             <div className="form-group row dailySets">
                                 <label htmlFor="fatCal" className="col-sm-8 keys">Fat:</label>
                                 <div className="col-sm-4">
@@ -134,10 +136,10 @@ class mForm extends Component {
                                     />
                                 </div>
                             </div>
-                        </form>
-                        <button onClick={()=> this.handleFormSubmit()} id="submit" className="btn btn-primary">Submit</button>
+                            <button onClick={()=> this.handleFormSubmit()} id="submit" className="btn btn-primary">Submit</button>
+
+                        </div>
                     </div>
-                </div>
             </div>
         )
     }
