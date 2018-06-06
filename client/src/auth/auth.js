@@ -6,10 +6,18 @@ import jwtDecode from "jwt-decode";
 const HOME = "/";
 
 export default class Auth {
+  // findUri() {
+  //   if (process.env.NODE_ENV === "development") {
+  //     return "http://localhost:3000/callback"
+  //   }else {
+  //     return "https://macdaddy.herokuapp.com/callback"
+  //   }
+  // };
+
   auth0 = new auth0.WebAuth({
     domain: "frank-valdez.auth0.com",
     clientID: Keys.auth0.clientID,
-    redirectUri: "http://localhost:3000/callback",
+    redirectUri: window.location.origin + "/callback",
     audience: "https://frank-valdez.auth0.com/userinfo",
     responseType: "token id_token",
     scope: "openid profile"

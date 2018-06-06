@@ -10,6 +10,8 @@ import Callback from "./components/Callback";
 
 class App extends Component {
   componentDidMount(){
+    console.log(process.env.NODE_ENV)
+    console.log(window.location.origin)
     console.log(this.props.auth.getProfile())
   }
   render() {
