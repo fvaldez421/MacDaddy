@@ -1,3 +1,17 @@
 .ltgrey {
     background-color: lightgrey;
 }
+.calBox {
+    padding: 6px 10px!important;
+}
+
+.cal {
+    min-width: 100%;
+    border: 0px !important;
+}
+.react-calendar{
+    font-family: Monstserrat, "Segoe UI", Tahoma, sans-serif!important;
+}
+.react-calendar__month-view__days__day--weekend {
+    color: black!important;
+}

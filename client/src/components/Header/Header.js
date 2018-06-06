@@ -18,7 +18,7 @@ class Header extends Component {
                 <div className="row">
                     <div className="col-md-10 mr-auto ml-auto mb-3">
                         <Link to="/home" className="btn btn-primary">Home</Link>
-                        <Link to="/meals" className="btn btn-danger">Meals (Enter and track meals)</Link>
+                        <Link to="/meals" className="btn btn-danger">Meals</Link>
                         <Link to="/me" className="btn btn-secondary">My Info</Link>
                     </div>
                 </div>
