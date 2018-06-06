@@ -8,10 +8,6 @@ const User = (props) => (
             <div className="col-md-10 mr-auto ml-auto">
                 <h3>This is the User Page Content</h3>
             </div>
-            <div className="col-md-10 mr-auto ml-auto">
-                <Link to="/Home" className="btn btn-primary">Home (After Login)</Link>
-                <Link to="/Meals" className="btn btn-danger">Meals (Enter and track meals)</Link>
-            </div>
         </div>
     </div>
 )

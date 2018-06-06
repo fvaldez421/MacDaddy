@@ -37,12 +37,6 @@ class Meals extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-10 mr-auto ml-auto mb-3">
-                        <Link to="/Home" className="btn btn-primary">Home (After Login)</Link>
-                        <Link to="/Me" className="btn btn-secondary">My Info (After Login)</Link>
-                    </div>
-                </div>
-                <div className="row">
                     <div className="col-md-6">
                         <div className="card">
                         <ul className="list-group list-group-flush">

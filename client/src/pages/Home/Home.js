@@ -1,3 +1,5 @@
+/*eslint no-restricted-globals: 0 */
+
 import React, { Component } from "react";
 import dForm from "./../../components/dForm";
 import './Home.css';
@@ -5,17 +7,11 @@ import { Link, Route } from "react-router-dom";
 
 class Home extends Component {
     componentDidMount() {
-        console.log(this.props);
+        console.log(location.pathname);
     }
     render() {
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md-10 mr-auto ml-auto mb-3">
-                        <Link to="/meals" className="btn btn-danger">Meals (Enter and track meals)</Link>
-                        <Link to="/me" className="btn btn-secondary">My Info (After Login)</Link>
-                    </div>
-                </div>
                 <div className="row">
                     <div className="col-md-10 mr-auto ml-auto text-left">
                         <h4>Welcome: {this.props.firstName}!</h4>
@@ -58,13 +54,13 @@ class Home extends Component {
                                                 <div className="col-sm-6 text-right"><span className="values">2225 CAL</span></div>
                                             </div>
                                         </div>
-                                        {/* <Link to={`${this.props.match.url}/dForm`} className="btn btn-danger">Change Daily Settings</Link> */}
+                                        <Link to={`/dForm`} className="btn btn-danger">Change Daily Settings</Link>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
-                            {/* <Route exact path={`${this.props.match.url}/dForm`} component={dForm} /> */}
+                            <Route path={`/dForm`} component={dForm} />
                         </div>
                         <p>The user should be redirected here if they're logged in or after initial session login.</p>
                     </div>
