@@ -10,7 +10,7 @@ import Callback from "./components/Callback";
 
 class App extends Component {
   componentDidMount(){
-    console.log(this.props.auth.isAuthenticated())
+    console.log(this.props.auth.getProfile())
   }
   render() {
     return (

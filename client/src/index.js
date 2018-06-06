@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import Auth from "./Auth";
+import Auth from "./auth/auth";
 
 const auth = new Auth();
 let state = {};
@@ -13,7 +13,15 @@ window.setState = (changes) => {
     ReactDOM.render(<App {...state} />, document.getElementById("root"));
 }
 
-let username = auth.getProfile().given_name || "First_Name";
+let username = auth.getProfile().given_name ? 
+                    auth.getProfile().given_name
+                    :
+                    [
+                        auth.getProfile().nickname ?
+                            auth.getProfile().nickname
+                            : 
+                            "Daniel"
+                    ]
 
 let initialState = {
     firstName: username,
