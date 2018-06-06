@@ -24,10 +24,9 @@ class mForm extends Component {
         return (
             <div className="settings text-left">
                 <div className="card">
+                <h4 className="card-header text-center">Add or Edit a Meal</h4>
+
                     <ul className="list-group list-group-flush">
-
-                        <h4 className="card-header text-center">New meal</h4>
-
                         <div className="list-group-item">
                             <div className="row">
                                 <h5 htmlFor="name" className="col-sm-4 keys">Name:</h5>
