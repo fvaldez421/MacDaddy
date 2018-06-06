@@ -30,7 +30,7 @@ class mForm extends Component {
 
                         <div className="list-group-item">
                             <div className="row">
-                                <h5 htmlFor="name" className="col-sm-4 keys mb-0">Name:</h5>
+                                <h5 htmlFor="name" className="col-sm-4 keys">Name:</h5>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
@@ -41,24 +41,22 @@ class mForm extends Component {
                                         placeholder="Meal Name"
                                     />
                                 </div>
+                                <label htmlFor="time" className="col-sm-4 keys">Time:</label>
+                                <div className="col-sm-8">
+                                    <input
+                                        type="text"
+                                        name="time"
+                                        value={this.state.time}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Meal Time"
+                                    />
+                                </div>
                             </div>
                         </div>
 
                         <div className="list-group-item">
                             <h5 className="card-subtitle keys">Macros:</h5>
-                            <div className="form-group row dailySets">
-                                <label htmlFor="fatMac" className="col-sm-8 keys">Fat:</label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="fatMac"
-                                        value={this.state.fatMac}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="Grams of Fat"
-                                    />
-                                </div>
-                            </div>
                             <div className="form-group row dailySets">
                                 <label htmlFor="proMac" className="col-sm-8 keys">Protein: </label>
                                 <div className="col-sm-4">
@@ -85,8 +83,63 @@ class mForm extends Component {
                                     />
                                 </div>
                             </div>
+                            <div className="form-group row dailySets">
+                                <label htmlFor="fibMac" className="col-sm-8 keys">Fiber:</label>
+                                <div className="col-sm-4">
+                                    <input
+                                        type="text"
+                                        name="fibMac"
+                                        value={this.state.fibMac}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Grams of Fiber"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group row dailySets">
+                                <label htmlFor="fatMac" className="col-sm-8 keys">Fat:</label>
+                                <div className="col-sm-4">
+                                    <input
+                                        type="text"
+                                        name="fatMac"
+                                        value={this.state.fatMac}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Grams of Fat"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group row dailySets">
+                                <label htmlFor="alcMac" className="col-sm-8 keys">Alhocol:</label>
+                                <div className="col-sm-4">
+                                    <input
+                                        type="text"
+                                        name="alcMac"
+                                        value={this.state.alcMac}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="CC of Alochol"
+                                    />
+                                </div>
+                            </div>
                         </div>
-
+                        <div className="list-group-item">
+                            <div className="row">
+                                <h5 htmlFor="desc" className="col-sm-4 keys">Description:</h5>
+                                <div className="col-sm-8">
+                                    <textarea
+                                        rows="3"
+                                        type="text"
+                                        name="desc"
+                                        value={this.state.desc}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Meal Description"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {/*
                         <div className="list-group-item">
                             <h5 className="card-subtitle keys">Calories:</h5>
                             <div className="form-group row dailySets">
@@ -141,9 +194,10 @@ class mForm extends Component {
                                     />
                                 </div>
                             </div>
-                            <button onClick={() => this.handleFormSubmit()} id="submit" className="btn btn-primary">Submit</button>
+                            
+                        </div>*/}
 
-                        </div>
+                        <button onClick={() => this.handleFormSubmit()} id="submit" className="btn btn-primary">Submit</button>
                     </ul>
 
                 </div>
