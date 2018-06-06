@@ -18,7 +18,7 @@ class App extends Component {
         <Router>
           <div>
             <Header {...this.props}/>
-            <Route path="/" render={() => this.props.auth.isAuthenticated() ? <Home {...this.props}/> : <Welcome />} />
+            <Route exact path="/" render={() => this.props.auth.isAuthenticated() ? <Home {...this.props}/> : <Welcome />} />
             <Route path="/meals" component={Meals} />
             <Route path="/callback" component={Callback} />
             <Route exact path="/me" component={UserInfo} />
