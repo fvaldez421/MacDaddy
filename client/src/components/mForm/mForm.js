@@ -19,6 +19,9 @@ class mForm extends Component {
     handleFormSubmit = event => {
         console.log(this.state)
     }
+    showFats = () => {
+        
+    }
 
     render() {
         return (
@@ -55,9 +58,9 @@ class mForm extends Component {
                         </div>
 
                         <div className="list-group-item">
-                            <h5 className="card-subtitle keys">Macros: <span className="noBold">(Click to add subcategories)</span></h5>
+                            <h5 className="card-subtitle keys">Macros: <span className="noBold">(Click for subcategories)</span></h5>
                             <div className="form-group row dailySets">
-                                <label htmlFor="fatMac" className="col-sm-8 keys">Fat:</label>
+                                <label htmlFor="fatMac" className="col-sm-8 keys" onClick={()=> this.showFats()}>Fat: </label>
                                 <div className="col-sm-4">
                                     <input
                                         type="text"

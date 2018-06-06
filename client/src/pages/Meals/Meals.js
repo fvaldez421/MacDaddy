@@ -43,56 +43,55 @@ class Meals extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="card">
-                            <h4 className="card-header">Calendar</h4>
-                            <li className="list-group list-group-flush calBox">
-                                <Calendar
-                                    className="cal"
-                                    calendarType="US"
-                                    onChange={(date) => { this.onChange(date); console.log(date) }}
-                                    value={this.state.date}
-                                />
-                            </li>
+                        <div className="row mb-4">
+
+                            <div className="col-md-12">
+                                <div className="card">
+                                    <h4 className="card-header">Calendar</h4>
+                                    <li className="list-group list-group-flush calBox">
+                                        <Calendar
+                                            className="cal"
+                                            calendarType="US"
+                                            onChange={(date) => { this.onChange(date); console.log(date) }}
+                                            value={this.state.date}
+                                        />
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mb-5">
+                            <div className="col-md-12">
+                                <div className="card">
+                                    <h4 className="card-header">Meals</h4>
+                                    <ul className="list-group list-group-flush">
+                                        {
+                                            this.state.food.map((meal, i) => (
+                                                <li className="list-group-item">
+                                                    <Meal
+                                                        name={meal.name}
+                                                        id={meal.id}
+                                                        date={meal.date}
+                                                        details={meal.details}
+                                                        fatMac={meal.fatMac}
+                                                        proMac={meal.proMac}
+                                                        carbMac={meal.carbMac}
+                                                        fatCal={meal.fatCal}
+                                                        proCal={meal.proCal}
+                                                    />
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div className="col-md-6">
                         <MealForm />
                     </div>
+
                 </div>
-                <div className="row">
-
-                    <div className="col-md-6">
-                        <div className="card">
-                            <h4 className="card-header">Meals</h4>
-                            <ul className="list-group list-group-flush">
-                                {
-                                    this.state.food.map((meal, i) => (
-                                        <li className="list-group-item">
-                                            {/* <Link to={`${this.props.match.url}/details:${meal.id}`} className=""> */}
-                                            <Meal
-                                                name={meal.name}
-                                                id={meal.id}
-                                                date={meal.date}
-                                                details={meal.details}
-                                                fatMac={meal.fatMac}
-                                                proMac={meal.proMac}
-                                                carbMac={meal.carbMac}
-                                                fatCal={meal.fatCal}
-                                                proCal={meal.proCal}
-                                            />
-
-                                            {/* </Link> */}
-                                            {/* <Route exact path={`${this.props.match.url}/details:${meal.id}`} component={mDetails}/> */}
-                                        </li>
-
-                                    ))
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         )
     }
