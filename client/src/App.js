@@ -10,9 +10,7 @@ import Callback from "./components/Callback";
 
 class App extends Component {
   componentDidMount(){
-    console.log(process.env.NODE_ENV)
-    console.log(window.location.origin)
-    console.log(this.props.auth.getProfile())
+    // console.log(this.props.auth.getProfile())
   }
   render() {
     return (
@@ -20,7 +18,8 @@ class App extends Component {
         <Router>
           <div>
             <Header {...this.props}/>
-            <Route exact path="/" render={() => this.props.auth.isAuthenticated() ? <Home {...this.props}/> : <Welcome />} />
+            <Route exact path="/" component={Welcome}/>
+            <Route path="/home" render={() => this.props.auth.isAuthenticated() ? <Home {...this.props}/> : <Welcome />} />
             <Route path="/meals" component={Meals} />
             <Route path="/callback" component={Callback} />
             <Route exact path="/me" component={UserInfo} />

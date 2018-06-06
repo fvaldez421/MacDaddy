@@ -3,7 +3,8 @@ import auth0 from "auth0-js";
 import Keys from "./keys";
 import jwtDecode from "jwt-decode";
 
-const HOME = "/";
+const ON_LOGIN_SUCCESS = "/home";
+const ON_LOGIN_FAILURE = "/";
 
 export default class Auth {
   // findUri() {
@@ -39,9 +40,9 @@ export default class Auth {
         localStorage.setItem("id_token",authResults.idToken );
         localStorage.setItem("expires_at", expiresAt);
         location.hash = "";
-        location.pathname = HOME;
+        location.pathname = ON_LOGIN_SUCCESS;
       } else if (err) {
-        location.pathname = HOME;
+        location.pathname = ON_LOGIN_FAILURE;
         console.log(err)
       }
     });
@@ -60,7 +61,7 @@ export default class Auth {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
-    location.pathname = HOME;
+    location.pathname = ON_LOGIN_FAILURE;
   }
 
   getProfile() {

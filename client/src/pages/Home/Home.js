@@ -1,5 +1,4 @@
 /*eslint no-restricted-globals: 0 */
-
 import React, { Component } from "react";
 import dForm from "./../../components/dForm";
 import './Home.css';
@@ -23,10 +22,6 @@ class Home extends Component {
                                         <h5 className="card-subtitle mb-2 keys">Macros:</h5>
                                         <div className="macs">
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Fat:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">65</span><span className="setVals">/DV grams</span></div>
-                                            </div>
-                                            <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Protein: </div>
                                                 <div className="col-sm-6 text-right"><span className="values">165</span><span className="setVals">/DV grams</span></div>
                                             </div>
@@ -34,17 +29,29 @@ class Home extends Component {
                                                 <div className="col-sm-6 keys">Carbs: </div>
                                                 <div className="col-sm-6 text-right"><span className="values">260</span><span className="setVals">/DV grams</span></div>
                                             </div>
+                                            <div className="form-group row dailySets keys">
+                                                <div className="col-sm-6 keys">Fiber:</div>
+                                                <div className="col-sm-6 text-right"><span className="values">20</span><span className="setVals">/DV grams</span></div>
+                                            </div>
+                                            <div className="form-group row dailySets keys">
+                                                <div className="col-sm-6 keys">Fat:</div>
+                                                <div className="col-sm-6 text-right"><span className="values">65</span><span className="setVals">/DV grams</span></div>
+                                            </div>
+                                            <div className="form-group row dailySets keys">
+                                                <div className="col-sm-6 keys">Alcohol:</div>
+                                                <div className="col-sm-6 text-right"><span className="values">0</span><span className="setVals">/DV grams</span></div>
+                                            </div>
                                         </div>
                                         <h5 className="card-subtitle mb-2 mt-2 keys">Calories:</h5>
                                         <div className="cals">
-                                            <div className="form-group row dailySets keys">
+                                            {/* <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Fat:</div>
                                                 <div className="col-sm-6 text-right"><span className="values">565</span><span className="setVals">/DV cals</span></div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Protein:</div>
                                                 <div className="col-sm-6 text-right"><span className="values">660</span><span className="setVals">/DV cals</span></div>
-                                            </div>
+                                            </div> */}
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Total:</div>
                                                 <div className="col-sm-6 text-right"><span className="values">1225</span><span className="setVals">/Maint cals</span></div>
@@ -54,13 +61,9 @@ class Home extends Component {
                                                 <div className="col-sm-6 text-right"><span className="values">2225 CAL</span></div>
                                             </div>
                                         </div>
-                                        <Link to={`/dForm`} className="btn btn-danger">Change Daily Settings</Link>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <Route path={`/dForm`} component={dForm} />
                         </div>
                         <p>The user should be redirected here if they're logged in or after initial session login.</p>
                     </div>
