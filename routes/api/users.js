@@ -3,6 +3,7 @@ const usersController = require("../../db/controllers/usersController");
 
 // Matches with "/api/users"
 router.route("/users")
+  .get(usersController.findByEmail)
   .get(usersController.findAll)
   .post(usersController.create);
 
