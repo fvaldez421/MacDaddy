@@ -8,7 +8,7 @@ export default {
     //             return response;
     //         })
     // },
-    
+
     // Adds user to db
     AddUser: function (user) {
         return axios.post("/api/users", user)
@@ -16,11 +16,14 @@ export default {
             })
     },
     // Gets individual User
-    FindUser: function (_id) {
-        return axios.get("/api/Users/" + _id)
-            .then(function (response) {
-                return response;
-            })
+    FindUser: function (email) {
+        return axios.get("/api/Users", {
+            params: {
+                email
+            }
+        }).then(function (response) {
+            return response;
+        })
     },
     // Updates User
     UpdateUser: function (_id, changes) {
