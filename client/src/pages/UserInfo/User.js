@@ -1,6 +1,6 @@
 import React from "react";
 import './User.css';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const User = (props) => (
     <div className="container">

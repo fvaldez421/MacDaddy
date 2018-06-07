@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import './Meals.css';
-import { Link, Route } from "react-router-dom";
+// import { Link, Route } from "react-router-dom";
+
 import Calendar from "react-calendar";
 
 import Meal from "./../../components/mBlock";
 import MealForm from "./../../components/mForm";
-import mDetails from "./../../components/mDetails";
+// import mDetails from "./../../components/mDetails";
 
 class Meals extends Component {
     state = {

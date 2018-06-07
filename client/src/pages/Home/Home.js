@@ -1,8 +1,8 @@
 /*eslint no-restricted-globals: 0 */
 import React, { Component } from "react";
-import dForm from "./../../components/dForm";
+// import dForm from "./../../components/dForm";
 import './Home.css';
-import { Link, Route } from "react-router-dom";
+// import { Link, Route } from "react-router-dom";
 
 class Home extends Component {
     componentDidMount() {

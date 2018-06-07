@@ -1,6 +1,6 @@
 import React from "react";
 import './Welcome.css';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Welcome = (props) => (
     <div className="container">
