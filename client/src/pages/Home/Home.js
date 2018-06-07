@@ -6,14 +6,13 @@ import './Home.css';
 
 class Home extends Component {
     componentDidMount() {
-        console.log(location.pathname);
     }
     render() {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-10 mr-auto ml-auto text-left">
-                        <h4>Welcome: {this.props.firstName}!</h4>
+                        <h4>Welcome: {this.props.user.nickName}!</h4>
                         <h5 className="keys">Today: </h5>
                         <div className="row">
                             <div className="col-md-12 stats">

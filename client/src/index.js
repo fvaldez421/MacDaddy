@@ -13,20 +13,12 @@ window.setState = (changes) => {
     ReactDOM.render(<App {...state} />, document.getElementById("root"));
 }
 
-let username = auth.getProfile().given_name ? 
-                    auth.getProfile().given_name
-                    :
-                    [
-                        auth.getProfile().nickname ?
-                            auth.getProfile().nickname
-                            : 
-                            "Daniel"
-                    ]
-
 let initialState = {
-    firstName: username,
     auth
 }
+
+
+
 
 window.setState(initialState);
 
