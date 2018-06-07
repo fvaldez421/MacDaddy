@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Welcome from "./pages/Welcome";
@@ -7,11 +7,17 @@ import Home from "./pages/Home";
 import Meals from "./pages/Meals";
 import UserInfo from "./pages/UserInfo";
 import Callback from "./components/Callback";
+import API from "./utils";
+
 
 class App extends Component {
+  
   componentDidMount(){
+    const Meals = API.Meals
     // console.log(this.props.auth.getProfile())
+    console.log(Meals.GetMeals);
   }
+  
   render() {
     return (
       <div className="App">
