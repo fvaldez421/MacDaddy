@@ -6,6 +6,7 @@ import './Home.css';
 
 class Home extends Component {
     componentDidMount() {
+        
     }
     render() {
         return (
