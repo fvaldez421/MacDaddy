@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './Meals.css';
 // import { Link, Route } from "react-router-dom";
 
-// import Calendar from "react-calendar";
+import Calendar from "react-calendar";
 
 import Meal from "./../../components/mBlock";
 import MealForm from "./../../components/mForm";
@@ -50,12 +50,12 @@ class Meals extends Component {
                                 <div className="card">
                                     <h4 className="card-header">Calendar</h4>
                                     <li className="list-group list-group-flush calBox">
-                                        {/* <Calendar
+                                        <Calendar
                                             className="cal"
                                             calendarType="US"
                                             onChange={(date) => { this.onChange(date); console.log(date) }}
                                             value={this.state.date}
-                                        /> */}
+                                        />
                                     </li>
                                 </div>
                             </div>
