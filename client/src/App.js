@@ -19,7 +19,7 @@ class App extends Component {
       meals: {}
     }
   }
-  
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated()) {
       let profile = this.props.auth.getProfile()
@@ -34,7 +34,7 @@ class App extends Component {
       UAPI.FindUser(email)
         .then(res => {
           if (res.data[0]) {
-            this.setState({user: res.data[0]})
+            this.setState({ user: res.data[0] })
             console.log(this.state.user)
           } else {
             UAPI.AddUser({
@@ -42,6 +42,10 @@ class App extends Component {
               email
             }).then(res => {
               console.log(res)
+              UAPI.FindUser(email)
+                .then(res => {
+                  this.setState({ user: res.data[0] })
+                })
             })
           }
         })
