@@ -9,18 +9,19 @@ import UserInfo from "./pages/UserInfo";
 import Callback from "./components/Callback";
 import UAPI from "./utils/user-api";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
+    this.getUser = this.getUser.bind(this)
     this.state = {
       props,
+      getUser: this.getUser,
       user: {},
       meals: {}
     }
   }
 
-  componentDidMount() {
+  getUser() {
     if (this.props.auth.isAuthenticated()) {
       let profile = this.props.auth.getProfile()
       let email = profile.email;
@@ -35,13 +36,13 @@ class App extends Component {
         .then(res => {
           if (res.data[0]) {
             this.setState({ user: res.data[0] })
-            console.log(this.state.user)
+            // console.log(this.state.user)
           } else {
             UAPI.AddUser({
               nickName,
               email
             }).then(res => {
-              console.log(res)
+              // console.log(res)
               UAPI.FindUser(email)
                 .then(res => {
                   this.setState({ user: res.data[0] })
@@ -50,6 +51,10 @@ class App extends Component {
           }
         })
     }
+  }
+  
+  componentDidMount() {
+    this.getUser();
   }
 
   render() {
@@ -60,9 +65,9 @@ class App extends Component {
             <Header {...this.props} />
             <Route exact path="/" component={Welcome} />
             <Route path="/home" render={() => this.props.auth.isAuthenticated() ? <Home {...this.state} /> : <Welcome />} />
-            <Route path="/meals" component={Meals} />
+            <Route path="/meals" render={() => <Meals {...this.state} />} />
             <Route path="/callback" component={Callback} />
-            <Route exact path="/me" component={UserInfo} />
+            <Route exact path="/me" render={() => <UserInfo {...this.state} />} />
           </div>
         </Router>
       </div>
