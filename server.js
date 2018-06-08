@@ -4,8 +4,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
 const axios = require('axios');
-const bodyParser = require ('body-parser');
 const routes = require ('./routes');
+const bodyParser = require ('body-parser');
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {

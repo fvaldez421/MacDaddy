@@ -4,9 +4,11 @@ const usersController = require("../../controllers/usersController");
 // Matches with "/api/users"
 router.route("/users")
   .get(usersController.findByEmail)
-  .get(usersController.findAll)
   .post(usersController.create);
 
+// Gets all users
+router.route("/users/all")
+  .get(usersController.findAll)
 // Matches with "/api/users/:id"
 router.route("/users/:_id")
   .get(usersController.findById)
