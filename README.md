@@ -2,7 +2,7 @@
 
 ## About
 
-This is a project built as a means to track a user's Macronutrient intake and caloric goals. 
+This is a project built as a means to track a user's Macronutrient intake and dietary goals. 
 
 When completed, the application should give a user the ability to log their meals daily and use the provided calendar to view and edit their meals and meal statistics from previous days.
 
