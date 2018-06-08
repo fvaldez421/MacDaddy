@@ -16,15 +16,15 @@ export default {
             })
     },
     // Gets individual User
-    FindUser: function (email) {
-        return axios.get("/api/users", {
-            params: {
-                email
-            }
-        }).then(function (response) {
-            return response;
-        })
-    },
+    // FindUser: function (email) {
+    //     return axios.get("/api/users", {
+    //         params: {
+    //             email
+    //         }
+    //     }).then(function (response) {
+    //         return response;
+    //     })
+    // },
     // Updates User
     UpdateUser: function (_id, changes) {
         return axios.put("/api/users/" + _id, changes)

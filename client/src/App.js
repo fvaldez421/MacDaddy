@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import Meals from "./pages/Meals";
 import UserInfo from "./pages/UserInfo";
 import Callback from "./components/Callback";
-import UAPI from "./utils/user-api";
+// import UAPI from "./utils/user-api";
 
 
 class App extends Component {
@@ -19,6 +19,7 @@ class App extends Component {
       meals: {}
     }
   }
+  /*
   componentDidMount() {
     if (this.props.auth.isAuthenticated()) {
       let profile = this.props.auth.getProfile()
@@ -45,10 +46,7 @@ class App extends Component {
           }
         })
     }
-
-
-
-  }
+  } */
 
   render() {
     return (
