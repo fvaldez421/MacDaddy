@@ -9,6 +9,7 @@ import MealForm from "./../../components/mForm";
 // import mDetails from "./../../components/mDetails";
 
 class Meals extends Component {
+
     state = {
         date: new Date(),
         food: [ //Will be replaced with result from call to DB
@@ -45,7 +46,6 @@ class Meals extends Component {
                 <div className="row">
                     <div className="col-md-6">
                         <div className="row mb-4">
-
                             <div className="col-md-12">
                                 <div className="card">
                                     <h4 className="card-header">Calendar</h4>
@@ -67,7 +67,7 @@ class Meals extends Component {
                                     <ul className="list-group list-group-flush">
                                         {
                                             this.state.food.map((meal, i) => (
-                                                <li className="list-group-item">
+                                                <li className="list-group-item" key={i}>
                                                     <Meal
                                                         name={meal.name}
                                                         id={meal.id}
