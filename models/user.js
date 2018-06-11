@@ -33,9 +33,8 @@ const userSchema = new Schema({
     prot: Number,
     sodium: Number,
     potas: Number,
-    minCals: Number,
-    maintCals: Number,
-    maxCals: Number
+    tarCals: Number,
+    maintCals: Number
 });
 
 const User = mongoose.model("User", userSchema);
