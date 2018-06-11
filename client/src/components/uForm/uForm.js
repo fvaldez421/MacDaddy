@@ -30,7 +30,7 @@ class uForm extends Component {
     }
     componentDidMount = () => {
         setTimeout(() => {
-            console.log(this.props);
+            // console.log(this.props);
             this.DB_id = this.props.user._id;
         }, 100)
     }
@@ -57,7 +57,7 @@ class uForm extends Component {
         return (
             <div className="col-md-12 settings">
                 <div className="card">
-                    <div className="card-body">
+                    <div className="card-body text-left">
                         <form>
                             <div className="form-group row dailySets">
                                 <label htmlFor="userName" className="col-sm-8 keys">Username:</label>
