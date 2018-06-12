@@ -1,7 +1,7 @@
 import React from "react";
 import "./uInfo.css"
 
-const userDemo = (props) => (
+const UserInfo = (props) => (
     <div className="col-md-10 mr-auto ml-auto text-left">
         <div className="row">
             <div className="col-md-12 stats">
@@ -110,4 +110,4 @@ const userDemo = (props) => (
     </div>
 )
 
-export default userDemo;
+export default UserInfo;
