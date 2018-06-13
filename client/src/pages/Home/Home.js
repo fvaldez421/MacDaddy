@@ -3,10 +3,41 @@ import React, { Component } from "react";
 // import dForm from "./../../components/dForm";
 import './Home.css';
 // import { Link, Route } from "react-router-dom";
+// import MAPI from "./../../utils/meals-api";
+
+const Value = (val, lim) => {
+    if (val === null || val === undefined) {
+        val = 0;
+    }
+    if (lim === null || lim === undefined) {
+        lim = 0
+    }
+    if (val < lim) {
+        return (
+            <div>
+            <span className="valG">{val}</span><span className="setVals">/{lim}g</span>
+            </div>
+        )
+    }else if (val === lim) {
+        return (
+            <div>
+            <span className="valY">{val}</span><span className="setVals">/{lim}g</span>
+            </div>
+        )
+    }else {
+        return (
+            <div>
+            <span className="valR">{val}</span><span className="setVals">/{lim}g</span>
+            </div>
+        )
+    }
+}
 
 class Home extends Component {
     componentDidMount() {
-        
+        setTimeout(() => {
+            console.log(this.props)
+        }, 100)
     }
     render() {
         return (
@@ -23,42 +54,34 @@ class Home extends Component {
                                         <div className="macs">
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Fat:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">65</span><span className="setVals">/DV grams</span></div>
+                                                <div className="col-sm-6 text-right">{Value(65, this.props.user.fat)}</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Carbs: </div>
-                                                <div className="col-sm-6 text-right"><span className="values">260</span><span className="setVals">/DV grams</span></div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.carb)}</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Protein: </div>
-                                                <div className="col-sm-6 text-right"><span className="values">165</span><span className="setVals">/DV grams</span></div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.prot)}</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Sodium:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">20</span><span className="setVals">/DV grams</span></div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.sodium)}</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Potassium:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">0</span><span className="setVals">/DV grams</span></div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.potas)}</div>
                                             </div>
                                         </div>
                                         <h5 className="card-subtitle mb-2 mt-2 keys">Calories:</h5>
                                         <div className="cals">
-                                            {/* <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Fat:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">565</span><span className="setVals">/DV cals</span></div>
-                                            </div>
-                                            <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Protein:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">660</span><span className="setVals">/DV cals</span></div>
-                                            </div> */}
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Total:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">1225</span><span className="setVals">/Maint cals</span></div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.tarCals)}</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Target:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">2225 CAL</span></div>
+                                                <div className="col-sm-6 keys">Maint:</div>
+                                                <div className="col-sm-6 text-right"><span className="values">{this.props.user.maintCals} CAL</span></div>
                                             </div>
                                         </div>
                                     </div>

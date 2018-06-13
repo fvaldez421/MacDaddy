@@ -4,8 +4,14 @@
 .keys {
     font-weight: 600;
 }
-.values {
+.valG {
     color: green;
+}
+.valY {
+    color: goldenrod;
+}
+.valR {
+    color: red;
 }
 .dailySets {
     padding: 0px;
