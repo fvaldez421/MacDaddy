@@ -22,23 +22,23 @@ class Home extends Component {
                                         <h5 className="card-subtitle mb-2 keys">Macros:</h5>
                                         <div className="macs">
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Protein: </div>
-                                                <div className="col-sm-6 text-right"><span className="values">165</span><span className="setVals">/DV grams</span></div>
+                                                <div className="col-sm-6 keys">Fat:</div>
+                                                <div className="col-sm-6 text-right"><span className="values">65</span><span className="setVals">/DV grams</span></div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Carbs: </div>
                                                 <div className="col-sm-6 text-right"><span className="values">260</span><span className="setVals">/DV grams</span></div>
                                             </div>
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Fiber:</div>
+                                                <div className="col-sm-6 keys">Protein: </div>
+                                                <div className="col-sm-6 text-right"><span className="values">165</span><span className="setVals">/DV grams</span></div>
+                                            </div>
+                                            <div className="form-group row dailySets keys">
+                                                <div className="col-sm-6 keys">Sodium:</div>
                                                 <div className="col-sm-6 text-right"><span className="values">20</span><span className="setVals">/DV grams</span></div>
                                             </div>
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Fat:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">65</span><span className="setVals">/DV grams</span></div>
-                                            </div>
-                                            <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Alcohol:</div>
+                                                <div className="col-sm-6 keys">Potassium:</div>
                                                 <div className="col-sm-6 text-right"><span className="values">0</span><span className="setVals">/DV grams</span></div>
                                             </div>
                                         </div>

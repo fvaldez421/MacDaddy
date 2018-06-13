@@ -44,26 +44,30 @@ class Meals extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6">
-                        <div className="row mb-4">
-                            <div className="col-md-12">
-                                <div className="card">
-                                    <h4 className="card-header">Calendar</h4>
-                                    <li className="list-group list-group-flush calBox">
-                                        <Calendar
-                                            className="cal"
-                                            calendarType="US"
-                                            onChange={(date) => { this.onChange(date); console.log(date) }}
-                                            value={this.state.date}
-                                        />
-                                    </li>
-                                </div>
+                    <div className="col-md-12">
+                        <div className="row">
+
+                            <div className="col-md-6 mb-4">
+                                    <div className="card calCont">
+                                        <h5 className="card-header">Calendar</h5>
+                                        <li className="list-group list-group-flush calBox calCont">
+                                            <Calendar
+                                                className="cal calCont"
+                                                calendarType="US"
+                                                onChange={(date) => { this.onChange(date); console.log(date) }}
+                                                value={this.state.date}
+                                            />
+                                        </li>
+                                    </div>
+                            </div>
+                            <div className="col-md-6 mb-4">
+                                <MealForm />
                             </div>
                         </div>
-                        <div className="row mb-5">
+                        <div className="row">
                             <div className="col-md-12">
                                 <div className="card">
-                                    <h4 className="card-header">Meals</h4>
+                                    <h5 className="card-header">Meals</h5>
                                     <ul className="list-group list-group-flush">
                                         {
                                             this.state.food.map((meal, i) => (
@@ -86,10 +90,6 @@ class Meals extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="col-md-6">
-                        <MealForm />
                     </div>
 
                 </div>

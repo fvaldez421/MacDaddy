@@ -1,6 +1,9 @@
 .ltgrey {
     background-color: lightgrey;
 }
+.calCont {
+    height: 100%!important;
+}
 .calBox {
     padding: 6px 10px!important;
 }

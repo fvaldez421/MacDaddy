@@ -24,14 +24,13 @@ class mForm extends Component {
 
     render() {
         return (
-            <div className="settings text-left">
+            <div className="text-left">
                 <div className="card">
-                    <h4 className="card-header text-center">Add or Edit a Meal</h4>
-
+                    <h5 className="card-header text-center">Add or Edit a Meal</h5>
                     <ul className="list-group list-group-flush">
                         <div className="list-group-item">
                             <div className="row">
-                                <h5 htmlFor="name" className="col-sm-4 keys">Name:</h5>
+                                <h6 htmlFor="name" className="col-sm-4 keys">Name:</h6>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
@@ -57,7 +56,7 @@ class mForm extends Component {
                         </div>
 
                         <div className="list-group-item">
-                            <h5 className="card-subtitle keys">Macros: <span className="noBold">(Click for subcategories)</span></h5>
+                            <h6 className="card-subtitle keys">Macros: <span className="noBold">(Click for subcategories)</span></h6>
                             <div className="form-group row dailySets">
                                 <label htmlFor="fatMac" className="col-sm-8 keys" onClick={()=> this.showFats()}>Fat: </label>
                                 <div className="col-sm-4">
@@ -127,7 +126,7 @@ class mForm extends Component {
                         </div>
                         <div className="list-group-item">
                             <div className="row">
-                                <h5 htmlFor="desc" className="col-sm-4 keys">Description:</h5>
+                                <h6 htmlFor="desc" className="col-sm-4 keys">Description:</h6>
                                 <div className="col-sm-8">
                                     <textarea
                                         rows="3"
