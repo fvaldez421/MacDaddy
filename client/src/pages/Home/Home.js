@@ -10,34 +10,37 @@ const Value = (val, lim) => {
         val = 0;
     }
     if (lim === null || lim === undefined) {
-        lim = 0
+        lim = "NA"
     }
-    if (val < lim) {
+    if (lim === "NA") {
         return (
-            <div>
-            <span className="valG">{val}</span><span className="setVals">/{lim}g</span>
-            </div>
+            <span>
+                <span className="valG">{val}</span><span className="setVals"></span>
+            </span>
         )
-    }else if (val === lim) {
+    } else if (val < lim) {
         return (
-            <div>
-            <span className="valY">{val}</span><span className="setVals">/{lim}g</span>
-            </div>
+            <span>
+                <span className="valG">{val}</span><span className="setVals">/{lim}</span>
+            </span>
         )
-    }else {
+    } else if (val === lim) {
         return (
-            <div>
-            <span className="valR">{val}</span><span className="setVals">/{lim}g</span>
-            </div>
+            <span>
+                <span className="valY">{val}</span><span className="setVals">/{lim}</span>
+            </span>
+        )
+    } else {
+        return (
+            <span>
+                <span className="valR">{val}</span><span className="setVals">/{lim}</span>
+            </span>
         )
     }
 }
 
 class Home extends Component {
     componentDidMount() {
-        setTimeout(() => {
-            console.log(this.props)
-        }, 100)
     }
     render() {
         return (
@@ -54,34 +57,34 @@ class Home extends Component {
                                         <div className="macs">
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Fat:</div>
-                                                <div className="col-sm-6 text-right">{Value(65, this.props.user.fat)}</div>
+                                                <div className="col-sm-6 text-right"><span>{Value(70, this.props.user.fat)}g</span></div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Carbs: </div>
-                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.carb)}</div>
+                                                <div className="col-sm-6 text-right">{Value(240, this.props.user.carb)}g</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Protein: </div>
-                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.prot)}</div>
+                                                <div className="col-sm-6 text-right">{Value(150, this.props.user.prot)}g</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Sodium:</div>
-                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.sodium)}</div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.sodium)}g</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
                                                 <div className="col-sm-6 keys">Potassium:</div>
-                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.potas)}</div>
+                                                <div className="col-sm-6 text-right">{Value(50, this.props.user.potas)}g</div>
                                             </div>
                                         </div>
                                         <h5 className="card-subtitle mb-2 mt-2 keys">Calories:</h5>
                                         <div className="cals">
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Total:</div>
+                                                <div className="col-sm-6 keys">Total/Target:</div>
                                                 <div className="col-sm-6 text-right">{Value(50, this.props.user.tarCals)}</div>
                                             </div>
                                             <div className="form-group row dailySets keys">
-                                                <div className="col-sm-6 keys">Maint:</div>
-                                                <div className="col-sm-6 text-right"><span className="values">{this.props.user.maintCals} CAL</span></div>
+                                                <div className="col-sm-6 keys">Maint CAL:</div>
+                                                <div className="col-sm-6 text-right"><span className="values">{this.props.user.maintCals}</span></div>
                                             </div>
                                         </div>
                                     </div>
