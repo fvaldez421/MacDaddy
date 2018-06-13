@@ -30,7 +30,7 @@ function dateParse(date) {
     }
     this.getHours = () => {
         let timeArr = this.dateArr[this.dateArr.length-5].split(":");
-        let hrs = parseInt(timeArr[0]);
+        let hrs = parseInt(timeArr[0], 10);
         let mins = timeArr[1];
         let meridiem = "";
         
