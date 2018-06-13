@@ -3,12 +3,12 @@ import './mForm.css';
 
 
 class mForm extends Component {
-    CardHead = (Bool) => {
-        if (Bool) {
+    CardHead = () => {
+        if (this.props.edit) {
             return (
-                <h5 className="card-header text-center">Edit Meal</h5>
+                <h5 className="card-header text-center">Edit Meal: {this.props.meal_id}</h5>
             )
-        }else {
+        } else {
             return (
                 <h5 className="card-header text-center">Add Meal</h5>
             )
@@ -16,14 +16,34 @@ class mForm extends Component {
     }
 
     state = {
+        user_id: "",
+        dateCode: "",
         name: "",
-        fatMac: "",
-        proMac: "",
-        carbMac: "",
-        fatCal: "",
-        proCal: ""
+        detail: "",
+        mealDate: "",
+        mealTime: "",
+        totFat: "", // Not a nested object
+            satFat: "",
+            transFat: "",
+            polyUnsatFat: "",
+            monoUnsatFat: "",
+        totCarb: "", // Not a nested object
+            fibCarb: "",
+            sugCarb: "",
+            otherCarb: "",
+        prot: "",
+        sodium: "",
+        potas: "",
+        minCals: "",
+        maintCals: "",
+        maxCals: ""
     }
 
+    componentWillReceiveProps() {
+        setTimeout(() => {
+            console.log(this.props.meal_id)
+        }, 100);
+    }
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
@@ -32,14 +52,14 @@ class mForm extends Component {
         console.log(this.state)
     }
     showFats = () => {
-        
+
     }
 
     render() {
         return (
             <div className="text-left">
                 <div className="card">
-                    {this.CardHead(this.props.edit)}
+                    {this.CardHead()}
                     <ul className="list-group list-group-flush">
                         <div className="list-group-item">
                             <div className="row">
@@ -71,7 +91,7 @@ class mForm extends Component {
                         <div className="list-group-item">
                             <h6 className="card-subtitle keys">Macros: <span className="noBold">(Click for subcategories)</span></h6>
                             <div className="form-group row dailySets">
-                                <label htmlFor="fatMac" className="col-sm-8 keys" onClick={()=> this.showFats()}>Fat: </label>
+                                <label htmlFor="fatMac" className="col-sm-8 keys" onClick={() => this.showFats()}>Fat: </label>
                                 <div className="col-sm-4">
                                     <input
                                         type="text"

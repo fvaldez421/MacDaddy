@@ -69,10 +69,11 @@ class Meals extends Component {
             mealTime: this.today.getHours(),
             headDate: this.today.headUse(),
             edit: false,
+            meal_id: null,
             food: [ //Will be replaced with result from call to DB
                 {
                     name: "Fried Chicken",
-                    id: "8765434567",
+                    _id: "8765434567",
                     date: "6/3/18 4:35 pm",
                     details: "KFC two piece, leg and thigh with some mashed potates",
                     fatMac: "20",
@@ -83,7 +84,7 @@ class Meals extends Component {
                 },
                 {
                     name: "Pizza",
-                    id: "4598722233",
+                    _id: "4598722233",
                     date: "6/3/18 6:20 pm",
                     details: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
                     fatMac: "80",
@@ -112,16 +113,23 @@ class Meals extends Component {
             mealTime: newDate.getHours(),
             headDate: newDate.headUse()
         })
-        setTimeout(() => {
-            console.log(this.state.date);
-            console.log(this.state.mealDate);
-            console.log(this.state.mealTime);
-            console.log(this.state.headDate);
-        }, 100)
+        // setTimeout(() => {
+        //     console.log(this.state.date);
+        //     console.log(this.state.mealDate);
+        //     console.log(this.state.mealTime);
+        //     console.log(this.state.headDate);
+        // }, 100)
     }
 
-    handleMealEdit = () => {
-        this.setState({ edit: true });
+    handleMealEdit = (_id) => {
+        this.setState({ 
+            edit: true, 
+            meal_id: _id
+        });
+        // setTimeout(() => {
+        //     console.log(this.state.edit);
+        //     console.log(this.state.meal_id);
+        // }, 100);
     }
 
     render() {
@@ -147,7 +155,9 @@ class Meals extends Component {
                             <div className="col-md-6 mb-4">
                                 <MealForm
                                     mealDate={this.state.mealDate}
+                                    meal_id={this.state.meal_id}
                                     edit={this.state.edit}
+                                    dateParse={dateParse}
                                 />
                             </div>
                         </div>
@@ -161,7 +171,7 @@ class Meals extends Component {
                                                 <li className="list-group-item" key={i}>
                                                     <Meal
                                                         name={meal.name}
-                                                        id={meal.id}
+                                                        _id={meal._id}
                                                         date={meal.date}
                                                         details={meal.details}
                                                         fatMac={meal.fatMac}
@@ -169,6 +179,7 @@ class Meals extends Component {
                                                         carbMac={meal.carbMac}
                                                         fatCal={meal.fatCal}
                                                         proCal={meal.proCal}
+                                                        handleMealEdit={this.handleMealEdit}
                                                     />
                                                 </li>
                                             ))
