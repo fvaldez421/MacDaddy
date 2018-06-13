@@ -1,7 +1,20 @@
 import React, { Component } from "react";
 import './mForm.css';
 
+
 class mForm extends Component {
+    CardHead = (Bool) => {
+        if (Bool) {
+            return (
+                <h5 className="card-header text-center">Edit Meal</h5>
+            )
+        }else {
+            return (
+                <h5 className="card-header text-center">Add Meal</h5>
+            )
+        }
+    }
+
     state = {
         name: "",
         fatMac: "",
@@ -26,7 +39,7 @@ class mForm extends Component {
         return (
             <div className="text-left">
                 <div className="card">
-                    <h5 className="card-header text-center">Add or Edit a Meal</h5>
+                    {this.CardHead(this.props.edit)}
                     <ul className="list-group list-group-flush">
                         <div className="list-group-item">
                             <div className="row">

@@ -3,9 +3,11 @@ const Schema = mongoose.Schema;
 
 const mealSchema = new Schema({
     user_id: String,
+    dateCode: Number,
     name: String,
     detail: String,
-    entryDate: String,
+    mealDate: String,
+    mealTime: String,
     totFat: Number, // Not a nested object
         satFat: Number,
         transFat: Number,
