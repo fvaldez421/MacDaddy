@@ -74,7 +74,7 @@ class Meals extends Component {
                 {
                     name: "Fried Chicken",
                     _id: "8765434567",
-                    date: "6/3/18 4:35 pm",
+                    dateCode: 1528913342379,
                     details: "KFC two piece, leg and thigh with some mashed potates",
                     fatMac: "20",
                     proMac: "80",
@@ -85,7 +85,7 @@ class Meals extends Component {
                 {
                     name: "Pizza",
                     _id: "4598722233",
-                    date: "6/3/18 6:20 pm",
+                    dateCode: 1528914242000,
                     details: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
                     fatMac: "80",
                     proMac: "50",
@@ -98,9 +98,12 @@ class Meals extends Component {
     }
 
     componentDidMount() {
-        console.log(this.state.mealDate);
-        console.log(this.state.mealTime);
-        console.log(this.state.headDate);
+        // console.log(this.state.mealDate);
+        // console.log(this.state.mealTime);
+        // console.log(this.state.headDate);
+        // let ms = Date.now();
+        // let now = new dateParse(new Date(ms));
+        // console.log(now.headUse())
     }
 
     onChange = (date) => {
@@ -167,12 +170,15 @@ class Meals extends Component {
                                     <h5 className="card-header">{this.state.headDate}</h5>
                                     <ul className="list-group list-group-flush">
                                         {
-                                            this.state.food.map((meal, i) => (
+                                            this.state.food.map((meal, i) => {
+                                                let mealDate = new dateParse(new Date(meal.dateCode));
+                                                return (
                                                 <li className="list-group-item" key={i}>
                                                     <Meal
                                                         name={meal.name}
                                                         _id={meal._id}
-                                                        date={meal.date}
+                                                        date={mealDate.headUse()}
+                                                        time={mealDate.getHours()}
                                                         details={meal.details}
                                                         fatMac={meal.fatMac}
                                                         proMac={meal.proMac}
@@ -182,7 +188,7 @@ class Meals extends Component {
                                                         handleMealEdit={this.handleMealEdit}
                                                     />
                                                 </li>
-                                            ))
+                                            )})
                                         }
                                     </ul>
                                 </div>

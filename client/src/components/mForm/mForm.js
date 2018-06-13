@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import './mForm.css';
+import "react-times/css/classic/default.css";
+import TP from "react-times";
 
 
 class mForm extends Component {
     CardHead = () => {
-        if (this.props.edit) {
+        if (this.props.meal_id) {
             return (
                 <h5 className="card-header text-center">Edit Meal: {this.props.meal_id}</h5>
             )
@@ -16,21 +18,21 @@ class mForm extends Component {
     }
 
     state = {
+        time: null,
+        meridiem: null,
         user_id: "",
-        dateCode: "",
+        dateCode: 1528913342379,
         name: "",
         detail: "",
-        mealDate: "",
-        mealTime: "",
         totFat: "", // Not a nested object
-            satFat: "",
-            transFat: "",
-            polyUnsatFat: "",
-            monoUnsatFat: "",
+        satFat: "",
+        transFat: "",
+        polyUnsatFat: "",
+        monoUnsatFat: "",
         totCarb: "", // Not a nested object
-            fibCarb: "",
-            sugCarb: "",
-            otherCarb: "",
+        fibCarb: "",
+        sugCarb: "",
+        otherCarb: "",
         prot: "",
         sodium: "",
         potas: "",
@@ -38,12 +40,25 @@ class mForm extends Component {
         maintCals: "",
         maxCals: ""
     }
+    componentDidMount() {
 
-    componentWillReceiveProps() {
-        setTimeout(() => {
-            console.log(this.props.meal_id)
-        }, 100);
     }
+    onTimeChange(time) {
+        time.replace(/ /g, "");
+        this.setState({ time: time });
+        setTimeout(() => {
+            console.log(this.state.time + " " + this.state.meridiem);
+            console.log(new Date("Wed Jun 12 2018 " + this.state.time + " " + this.state.meridiem))
+        }, 100)
+    }
+    onMeridiemChange(meridiem) {
+        this.setState({ meridiem })
+    }
+    // componentWillReceiveProps() {
+    //     setTimeout(() => {
+    //         console.log(this.props.meal_id)
+    //     }, 100);
+    // }
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
@@ -74,17 +89,28 @@ class mForm extends Component {
                                         placeholder="Meal Name"
                                     />
                                 </div>
-                                <label htmlFor="time" className="col-sm-4 keys">Time:</label>
-                                <div className="col-sm-8">
+                                <label htmlFor="time" className="col-sm-4 keys">time:</label>
+                                <div style={{ width: 250, height: 50 }}>
+                                    <TP
+
+                                        time={this.state.time}
+                                        meridiem={this.state.meridiem}
+                                        theme="classic"
+                                        timeMode="12"
+                                        onTimeChange={this.onTimeChange.bind(this)}
+                                        onMeridiemChange={this.onMeridiemChange.bind(this)}
+                                    />
+                                </div>
+                                {/* <div className="col-sm-8">
                                     <input
-                                        type="text"
+                                        type="datetime-local"
                                         name="time"
-                                        value={this.state.time}
-                                        onChange={this.handleInputChange}
+                                        value={this.state.dateCode}
+                                        onChange={(e) => {console.log(e.target)}}
                                         className="form-control dailySets"
                                         placeholder="Meal Time"
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 

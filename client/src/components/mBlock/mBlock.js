@@ -9,7 +9,7 @@ const mBlock = (props) => (
                 <h5 className="keys">{props.name}</h5>
             </div>
             <div className="col-sm-4">
-                <h6 className="text-right">{props.date}</h6>
+                <h6 className="text-right">{props.time}</h6>
             </div>
             </div>
             <p className="col-md-12">{props.details}</p>
