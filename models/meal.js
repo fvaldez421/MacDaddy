@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const mealSchema = new Schema({
     user_id: String,
     dateCode: Number,
+    mealDate: String,
     mealTime: String,
     name: String,
     detail: String,
