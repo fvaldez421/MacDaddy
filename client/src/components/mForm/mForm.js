@@ -16,55 +16,70 @@ class mForm extends Component {
             )
         }
     }
-
-    state = {
-        time: null,
-        meridiem: null,
-        user_id: "",
-        dateCode: 1528913342379,
-        name: "",
-        detail: "",
-        totFat: "", // Not a nested object
-        satFat: "",
-        transFat: "",
-        polyUnsatFat: "",
-        monoUnsatFat: "",
-        totCarb: "", // Not a nested object
-        fibCarb: "",
-        sugCarb: "",
-        otherCarb: "",
-        prot: "",
-        sodium: "",
-        potas: "",
-        minCals: "",
-        maintCals: "",
-        maxCals: ""
+    constructor(props) {
+        super(props);
+        this.state = {
+            time: null,
+            meridiem: null,
+            user_id: null,
+            dateCode: 1528913342379,
+            mealDate: null,
+            name: "",
+            detail: "",
+            totFat: "", // Not a nested object
+            satFat: "",
+            transFat: "",
+            polyUnsatFat: "",
+            monoUnsatFat: "",
+            totCarb: "", // Not a nested object
+            fibCarb: "",
+            sugCarb: "",
+            otherCarb: "",
+            prot: "",
+            sodium: "",
+            potas: "",
+            minCals: "",
+            maintCals: "",
+            maxCals: ""
+        }
     }
     componentDidMount() {
-
+    }
+    componentWillReceiveProps() {
+        this.setState({ user_id: this.props.user_id })
     }
     onTimeChange(time) {
         time.replace(/ /g, "");
-        this.setState({ time: time });
-        setTimeout(() => {
-            console.log(this.state.time + " " + this.state.meridiem);
-            console.log(new Date("Wed Jun 12 2018 " + this.state.time + " " + this.state.meridiem))
-        }, 100)
+        this.setState({
+            time: time,
+            dateCode: Date.parse(
+                new Date(
+                    this.props.mealDate + " " + time + " " + this.state.meridiem
+                )
+            )
+        })
+        // setTimeout(() => {
+        //     console.log(this.state.time + " " + this.state.meridiem);
+        //     console.log(new Date(this.props.mealDate + " " + this.state.time + " " + this.state.meridiem))
+        //     console.log(Date.parse(new Date(this.props.mealDate + " " + this.state.time + " " + this.state.meridiem)))
+
+        // }, 100)
+
     }
     onMeridiemChange(meridiem) {
         this.setState({ meridiem })
     }
-    // componentWillReceiveProps() {
-    //     setTimeout(() => {
-    //         console.log(this.props.meal_id)
-    //     }, 100);
-    // }
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     };
     handleFormSubmit = event => {
-        console.log(this.state)
+        delete this.state.meridiem
+        delete this.state.time
+        setTimeout(() => {
+            console.log(this.state)
+        }, 100);
     }
     showFats = () => {
 

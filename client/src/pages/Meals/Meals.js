@@ -63,6 +63,7 @@ class Meals extends Component {
         this.handleMealEdit = this.handleMealEdit.bind(this);        
         this.today = new dateParse(new Date());
         this.state = {
+            user_id: null,
             date: new Date(),
             selDate: new dateParse(new Date()),
             mealDate: this.today.mealUse(),
@@ -98,12 +99,12 @@ class Meals extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.state.mealDate);
-        // console.log(this.state.mealTime);
-        // console.log(this.state.headDate);
-        // let ms = Date.now();
-        // let now = new dateParse(new Date(ms));
-        // console.log(now.headUse())
+        this.props.getUser();
+    }
+    componentWillReceiveProps() {
+        setTimeout(() => {
+            this.setState({ user_id: this.props.user._id })
+        }, 50);
     }
 
     onChange = (date) => {
@@ -116,12 +117,6 @@ class Meals extends Component {
             mealTime: newDate.getHours(),
             headDate: newDate.headUse()
         })
-        // setTimeout(() => {
-        //     console.log(this.state.date);
-        //     console.log(this.state.mealDate);
-        //     console.log(this.state.mealTime);
-        //     console.log(this.state.headDate);
-        // }, 100)
     }
 
     handleMealEdit = (_id) => {
@@ -129,10 +124,6 @@ class Meals extends Component {
             edit: true, 
             meal_id: _id
         });
-        // setTimeout(() => {
-        //     console.log(this.state.edit);
-        //     console.log(this.state.meal_id);
-        // }, 100);
     }
 
     render() {
@@ -157,6 +148,7 @@ class Meals extends Component {
                             </div>
                             <div className="col-md-6 mb-4">
                                 <MealForm
+                                    user_id={this.state.user_id}
                                     mealDate={this.state.mealDate}
                                     meal_id={this.state.meal_id}
                                     edit={this.state.edit}
