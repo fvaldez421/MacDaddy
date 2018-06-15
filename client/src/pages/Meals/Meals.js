@@ -108,6 +108,7 @@ class Meals extends Component {
     }
 
     onChange = (date) => {
+        console.log(date);
         let newDate = new dateParse(date);
 
         this.setState({

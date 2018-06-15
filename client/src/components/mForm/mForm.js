@@ -23,7 +23,6 @@ class mForm extends Component {
             meridiem: null,
             user_id: null,
             dateCode: 1528913342379,
-            mealDate: null,
             name: "",
             detail: "",
             totFat: "", // Not a nested object
@@ -80,6 +79,7 @@ class mForm extends Component {
         setTimeout(() => {
             console.log(this.state)
         }, 100);
+        
     }
     showFats = () => {
 
