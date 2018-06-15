@@ -35,9 +35,9 @@ function dateParse(date) {
         let meridiem = "";
         
         if (hrs > 11) {
-            meridiem = "pm";
+            meridiem = "PM";
         }else {
-            meridiem = "am";
+            meridiem = "AM";
         }
         if (timeArr[0] !== "00" && hrs !== 10 && hrs !==20) {
             let temp = hrs.toString();
@@ -45,7 +45,7 @@ function dateParse(date) {
             hrs = temp;
         } else {
             hrs = "12";
-            meridiem = "am";
+            meridiem = "AM";
         }
         if (mins < 10) {
             let temp = mins.toString();
@@ -61,7 +61,7 @@ class Meals extends Component {
     constructor(props) {
         super(props);
         this.handleMealEdit = this.handleMealEdit.bind(this);        
-        this.today = new dateParse(new Date());
+        this.today = new dateParse(new Date()); // Sets initial date for Calendar and values sent to "New Meal" form
         this.state = {
             user_id: null,
             date: new Date(),
@@ -99,7 +99,7 @@ class Meals extends Component {
     }
 
     componentDidMount() {
-        this.props.getUser();
+        this.props.getUser(); // Populates getUser() lives in and is bound to App.js, populates User object in props.
     }
     componentWillReceiveProps() {
         setTimeout(() => {
@@ -107,21 +107,27 @@ class Meals extends Component {
         }, 50);
     }
 
-    onChange = (date) => {
+    onChange = (date) => { // onChange belongs to Calendar Component
         console.log(date);
+    
         let newDate = new dateParse(date);
+        console.log(newDate.mealUse())
+        console.log(newDate.getHours())
+        console.log(newDate.headUse())
+        let dateCode = new Date(date);
 
         this.setState({
-            date: date,
-            selDate: newDate,
-            mealDate: newDate.mealUse(),
-            mealTime: newDate.getHours(),
-            headDate: newDate.headUse()
+            date: date, // Wed Jun 13 2018 00:00:00 GMT-0700 (Pacific Daylight Time): used for and by calendar
+            selDate: newDate, // return object with built in methods to be used later
+            dateCode: dateCode, // Date ms to be pushed into DB for later use
+            mealDate: newDate.mealUse(), // returns Jun 13 2018 to be pushed into and used to pull from DB
+            mealTime: newDate.getHours(), // returns 12:00 am on blank calendar date, if given real MS date, returns real time in 12hr format
+            headDate: newDate.headUse() // returns Wed, Jun 13, 2018 for use on header for meals list
         })
     }
 
-    handleMealEdit = (_id) => {
-        this.setState({ 
+    handleMealEdit = (_id) => { // This is fired by edit meal button on list, changes "New Meal" to "Edit Meal",
+        this.setState({         // used meal _id to find meal in Meals Collection and populates form
             edit: true, 
             meal_id: _id
         });
