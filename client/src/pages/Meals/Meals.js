@@ -11,15 +11,18 @@ import MealForm from "./../../components/mForm";
 
 function dateParse(date) {
     this.dateArr = date.toString().split(" ");
+    this.timeArr = this.dateArr[this.dateArr.length-5].split(":");
+    this.hrs = parseInt(this.timeArr[0], 10);
+    this.mins = this.timeArr[1];
 
-    this.mealUse = () => {
+    this.mealUseDate = () => {
         let newArr = [];
         for (let i = 1; i <= 3; i++) {
             newArr.push(this.dateArr[i]);
         }
         return newArr.toString().replace(/,/ig, " ");
     } 
-    this.headUse = () => {
+    this.headUseDate = () => {
         let newArr = [];
         for (let i = 0; i <= 3; i++) {
             newArr.push(this.dateArr[i]);
@@ -28,7 +31,7 @@ function dateParse(date) {
         newArr[2] = newArr[2]+="#";
         return newArr.toString().replace(/,/ig, " ").replace(/#/ig, ",");
     }
-    this.getHours = () => {
+    this.getHoursFull = () => {
         let timeArr = this.dateArr[this.dateArr.length-5].split(":");
         let hrs = parseInt(timeArr[0], 10);
         let mins = timeArr[1];
@@ -54,6 +57,38 @@ function dateParse(date) {
         };
         return hrs + ":" + mins + " " + meridiem;
     }
+    this.getHoursOnly = () => {
+        let formatHRS = this.hrs;
+        let formatMINS = this.mins;
+        if (this.timeArr[0] !== "00" && formatHRS !== 10 && formatHRS !==20) {
+            let temp = formatHRS.toString();
+            temp.replace(/0/, "");
+            formatHRS = parseInt(temp, 10);
+        }
+        if (formatHRS !== 0 && formatHRS > 12 && formatHRS < 24){
+            let temp = formatHRS - 11
+            formatHRS = temp;
+        }else if (formatHRS === 24){
+            formatHRS = "00"
+        }
+
+        if (formatMINS < 10) {
+            let temp = formatMINS.toString();
+            temp.replace(/0/, "");
+            formatMINS = temp;
+        };
+        return formatHRS + ":" + formatMINS;
+    }
+    this.getMer = () => {
+        let meridiem = "AM";
+        
+        if (this.hrs > 11 && this.hrs !== 24) {
+            meridiem = "PM";
+        }else {
+            meridiem = "AM";
+        }
+        return meridiem
+    }
 
 }
 
@@ -64,11 +99,12 @@ class Meals extends Component {
         this.today = new dateParse(new Date()); // Sets initial date for Calendar and values sent to "New Meal" form
         this.state = {
             user_id: null,
-            date: new Date(),
-            selDate: new dateParse(new Date()),
-            mealDate: this.today.mealUse(),
-            mealTime: this.today.getHours(),
-            headDate: this.today.headUse(),
+            CALdate: new Date(),
+            selDate: this.today,
+            date: this.today.mealUseDate(),
+            time: this.today.getHoursOnly(),
+            meridiem: this.today.getMer(),
+            headDate: this.today.headUseDate(),
             edit: false,
             meal_id: null,
             food: [ //Will be replaced with result from call to DB
@@ -100,6 +136,7 @@ class Meals extends Component {
 
     componentDidMount() {
         this.props.getUser(); // Populates getUser() lives in and is bound to App.js, populates User object in props.
+        // console.log(this.state.time)
     }
     componentWillReceiveProps() {
         setTimeout(() => {
@@ -107,23 +144,21 @@ class Meals extends Component {
         }, 50);
     }
 
-    onChange = (date) => { // onChange belongs to Calendar Component
-        console.log(date);
-    
-        let newDate = new dateParse(date);
-        console.log(newDate.mealUse())
-        console.log(newDate.getHours())
-        console.log(newDate.headUse())
-        let dateCode = new Date(date);
-
+    onChange = (CALdate) => { // onChange belongs to Calendar Component
+        let newDate = new dateParse(CALdate);
+        let dateCode = new Date(CALdate);
         this.setState({
-            date: date, // Wed Jun 13 2018 00:00:00 GMT-0700 (Pacific Daylight Time): used for and by calendar
+            CALdate: CALdate, // Wed Jun 13 2018 00:00:00 GMT-0700 (Pacific Daylight Time): used for and by calendar
             selDate: newDate, // return object with built in methods to be used later
             dateCode: dateCode, // Date ms to be pushed into DB for later use
-            mealDate: newDate.mealUse(), // returns Jun 13 2018 to be pushed into and used to pull from DB
-            mealTime: newDate.getHours(), // returns 12:00 am on blank calendar date, if given real MS date, returns real time in 12hr format
-            headDate: newDate.headUse() // returns Wed, Jun 13, 2018 for use on header for meals list
+            date: newDate.mealUseDate(), // returns Jun 13 2018 to be pushed into and used to pull from DB
+            time: newDate.getHoursOnly(), // returns 12:00 am on blank calendar date, if given real MS date, returns real time in 12hr format
+            meridiem: newDate.getMer(),
+            headDate: newDate.headUseDate() // returns Wed, Jun 13, 2018 for use on header for meals list
         })
+        setTimeout(() => {
+            console.log(this.state.date);
+        }, 50);
     }
 
     handleMealEdit = (_id) => { // This is fired by edit meal button on list, changes "New Meal" to "Edit Meal",
@@ -148,15 +183,18 @@ class Meals extends Component {
                                             className="cal calCont"
                                             calendarType="US"
                                             onChange={(date) => this.onChange(date)}
-                                            value={this.state.date}
+                                            value={this.state.CALdate}
                                         />
                                     </li>
                                 </div>
                             </div>
                             <div className="col-md-6 mb-4">
                                 <MealForm
+                                    selDate={this.state.selDate}
                                     user_id={this.state.user_id}
-                                    mealDate={this.state.mealDate}
+                                    date={this.state.date}
+                                    time={this.state.time}
+                                    meridiem={this.state.meridiem}
                                     meal_id={this.state.meal_id}
                                     edit={this.state.edit}
                                     dateParse={dateParse}
@@ -176,8 +214,9 @@ class Meals extends Component {
                                                     <Meal
                                                         name={meal.name}
                                                         _id={meal._id}
-                                                        date={mealDate.headUse()}
-                                                        time={mealDate.getHours()}
+                                                        date={mealDate.headUseDate()}
+                                                        time={mealDate.getHoursOnly()}
+                                                        mer={mealDate.getMer()}
                                                         details={meal.details}
                                                         fatMac={meal.fatMac}
                                                         proMac={meal.proMac}
