@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import './mForm.css';
 import "react-times/css/classic/default.css";
 import TP from "react-times";
+import MAPI from "./../../utils/meals-api";
 
 
 class mForm extends Component {
@@ -19,21 +20,23 @@ class mForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            time: null,
-            meridiem: null,
-            user_id: null,
-            dateCode: 1528913342379,
+            time: null, // Will be set to props if New Meal, automatically sets meridiem too
+                                        // Will be deleted upon form submit, then reset if submit is unsuccessful
+            meridiem: null, // Used to update clock. Will also be deleted upon form submit, ^^^^ 
+            user_id: null, // Will be set to this.props.user_id if new meal form
+            date: null,
+            dateCode: null, // Will be null if new meal, set onTimeChange, time and meridiem are added
             name: "",
             detail: "",
-            totFat: "", // Not a nested object
-            satFat: "",
-            transFat: "",
-            polyUnsatFat: "",
-            monoUnsatFat: "",
-            totCarb: "", // Not a nested object
-            fibCarb: "",
-            sugCarb: "",
-            otherCarb: "",
+            totFat: "", // Not a nested object, should be eq to all fats added together if appl.
+                satFat: "",
+                transFat: "",
+                polyUnsatFat: "",
+                monoUnsatFat: "",
+            totCarb: "", // Not a nested object, should be eq to all carbs added together if appl.
+                fibCarb: "",
+                sugCarb: "",
+                otherCarb: "",
             prot: "",
             sodium: "",
             potas: "",
@@ -43,42 +46,70 @@ class mForm extends Component {
         }
     }
     componentDidMount() {
+        if (this.props.edit) {
+            MAPI.ThisMeal(this.props.meal_id)
+                .then(res => {
+                    console.log(res.data[0])
+                })
+        } else {
+            this.setState({ 
+                user_id: this.props.user_id,
+                time: this.props.time,
+                meridiem: this.props.meridiem
+            })
+        }
     }
     componentWillReceiveProps() {
-        this.setState({ user_id: this.props.user_id })
-    }
-    onTimeChange(time) {
+        if (!this.props.edit) {
+            // console.log(this.props)
+            // this.setState({ 
+            //     user_id: this.props.user_id,
+            //     time: this.props.time,
+            //     meridiem: this.props.meridiem
+            // })
+        }
+    };
+    onTimeChange(time) { // Belongs to TimePicker Component
         time.replace(/ /g, "");
         this.setState({
-            time: time,
-            dateCode: Date.parse(
-                new Date(
-                    this.props.mealDate + " " + time + " " + this.state.meridiem
-                )
-            )
+            time: time
         })
-        // setTimeout(() => {
-        //     console.log(this.state.time + " " + this.state.meridiem);
-        //     console.log(new Date(this.props.mealDate + " " + this.state.time + " " + this.state.meridiem))
-        //     console.log(Date.parse(new Date(this.props.mealDate + " " + this.state.time + " " + this.state.meridiem)))
-
-        // }, 100)
-
-    }
-    onMeridiemChange(meridiem) {
+    };
+    onMeridiemChange(meridiem) { // Belongs to TimePicker Component
         this.setState({ meridiem })
-    }
+    };
 
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     };
+
     handleFormSubmit = event => {
+        event.preventDefault();
+
+        let SavedTime = this.props.time;
+        let SavedMeridiem = this.state.meridiem;
+
+        this.setState({
+            date: this.props.date,
+            dateCode: Date.parse(
+                new Date(
+                    this.props.date + " " + this.state.time + " " + this.state.meridiem
+                )
+            )
+        })
+        console.log(this.props.date + " " + this.state.time + " " + this.state.meridiem)
         delete this.state.meridiem
         delete this.state.time
         setTimeout(() => {
+            console.log(new Date(this.state.dateCode))
+            console.log(this.state.dateCode);
             console.log(this.state)
-        }, 100);
+            this.setState({ 
+                time: SavedTime,
+                meridiem: SavedMeridiem
+            })
+        }, 100)
         
     }
     showFats = () => {
@@ -272,7 +303,7 @@ class mForm extends Component {
                             
                         </div>*/}
 
-                        <button onClick={() => this.handleFormSubmit()} id="submit" className="btn btn-primary">Submit</button>
+                        <button onClick={(e) => this.handleFormSubmit(e)} id="submit" className="btn btn-primary">Submit</button>
                     </ul>
 
                 </div>
