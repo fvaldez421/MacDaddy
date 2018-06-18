@@ -7,7 +7,7 @@ router.route("/meals")
     .post(mealsController.create);
 
 // Matches with "/api/meals/user/:id"
-router.route("/meals/user/:id")
+router.route("/meals/user")
     .get(mealsController.findByUser);
 
 // Matches with "/api/meals/:id"
