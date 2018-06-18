@@ -6,23 +6,24 @@ import Calendar from "react-calendar";
 
 import Meal from "./../../components/mBlock";
 import MealForm from "./../../components/mForm";
+import MAPI from "../../utils/meals-api";
 // import mDetails from "./../../components/mDetails";
 
 
 function dateParse(date) {
-    this.dateArr = date.toString().split(" ");
-    this.timeArr = this.dateArr[this.dateArr.length-5].split(":");
-    this.hrs = parseInt(this.timeArr[0], 10);
-    this.mins = this.timeArr[1];
+    this.dateArr = date.toString().split(" "); // Generates array: [Tue,Jun,19,2018,05:28:00,GMT-0700,(Pacific,Daylight,Time)]
+    this.timeArr = this.dateArr[this.dateArr.length-5].split(":"); // Generates array using the time [05,28,00]
+    this.hrs = parseInt(this.timeArr[0], 10); // Gets hours from timeArr in 24hr format as an integer from time array (05)
+    this.mins = this.timeArr[1]; // Gets hours from timeArr (28)
 
-    this.mealUseDate = () => {
+    this.mealUseDate = () => { // Returns Jun 19 2018 - used this format for simplify queries to the DB
         let newArr = [];
         for (let i = 1; i <= 3; i++) {
             newArr.push(this.dateArr[i]);
         }
         return newArr.toString().replace(/,/ig, " ");
     } 
-    this.headUseDate = () => {
+    this.headUseDate = () => { // Returns Tue, Jun 19, 2018 to be used by the Meals list card header
         let newArr = [];
         for (let i = 0; i <= 3; i++) {
             newArr.push(this.dateArr[i]);
@@ -31,7 +32,7 @@ function dateParse(date) {
         newArr[2] = newArr[2]+="#";
         return newArr.toString().replace(/,/ig, " ").replace(/#/ig, ",");
     }
-    this.getHoursFull = () => {
+    this.getHoursFull = () => { // Supposed to return time in 24hr format (05:28:00 AM) NO LONGER USED
         let timeArr = this.dateArr[this.dateArr.length-5].split(":");
         let hrs = parseInt(timeArr[0], 10);
         let mins = timeArr[1];
@@ -57,7 +58,7 @@ function dateParse(date) {
         };
         return hrs + ":" + mins + " " + meridiem;
     }
-    this.getHoursOnly = () => {
+    this.getHoursOnly = () => { // Returns hours in 12 hr format
         let formatHRS = this.hrs;
         let formatMINS = this.mins;
         if (this.timeArr[0] !== "00" && formatHRS !== 10 && formatHRS !==20) {
@@ -79,7 +80,7 @@ function dateParse(date) {
         };
         return formatHRS + ":" + formatMINS;
     }
-    this.getMer = () => {
+    this.getMer = () => { // Returns Meridiem based on hrs
         let meridiem = "AM";
         
         if (this.hrs > 11 && this.hrs !== 24) {
@@ -107,12 +108,12 @@ class Meals extends Component {
             headDate: this.today.headUseDate(),
             edit: false,
             meal_id: null,
-            food: [ //Will be replaced with result from call to DB
+            meals: [ //Will be replaced with result from call to DB
                 {
                     name: "Fried Chicken",
                     _id: "8765434567",
                     dateCode: 1528913342379,
-                    details: "KFC two piece, leg and thigh with some mashed potates",
+                    detail: "KFC two piece, leg and thigh with some mashed potates",
                     fatMac: "20",
                     proMac: "80",
                     carbMac: "120",
@@ -123,7 +124,7 @@ class Meals extends Component {
                     name: "Pizza",
                     _id: "4598722233",
                     dateCode: 1528914242000,
-                    details: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
+                    detail: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
                     fatMac: "80",
                     proMac: "50",
                     carbMac: "600",
@@ -135,15 +136,30 @@ class Meals extends Component {
     }
 
     componentDidMount() {
-        this.props.getUser(); // Populates getUser() lives in and is bound to App.js, populates User object in props.
-        // console.log(this.state.time)
+        this.props.getUser(); // getUser() lives in and is bound to App.js, populates User object in props.
+        
     }
     componentWillReceiveProps() {
         setTimeout(() => {
             this.setState({ user_id: this.props.user._id })
         }, 50);
+        setTimeout(() => {
+            console.log(this.state.user_id)
+            this.getMeals();
+        }, 100);
     }
 
+    getMeals() {
+        let user_id = (this.state.user_id).toString();
+        let date = (this.state.date).toString();
+        MAPI.GetMeals(user_id, date)
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    meals: res.data
+                })
+            })
+    }
     onChange = (CALdate) => { // onChange belongs to Calendar Component
         let newDate = new dateParse(CALdate);
         let dateCode = new Date(CALdate);
@@ -207,7 +223,7 @@ class Meals extends Component {
                                     <h5 className="card-header">{this.state.headDate}</h5>
                                     <ul className="list-group list-group-flush">
                                         {
-                                            this.state.food.map((meal, i) => {
+                                            this.state.meals.map((meal, i) => {
                                                 let mealDate = new dateParse(new Date(meal.dateCode));
                                                 return (
                                                 <li className="list-group-item" key={i}>
@@ -217,7 +233,7 @@ class Meals extends Component {
                                                         date={mealDate.headUseDate()}
                                                         time={mealDate.getHoursOnly()}
                                                         mer={mealDate.getMer()}
-                                                        details={meal.details}
+                                                        details={meal.detail}
                                                         fatMac={meal.fatMac}
                                                         proMac={meal.proMac}
                                                         carbMac={meal.carbMac}
