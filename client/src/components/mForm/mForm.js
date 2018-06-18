@@ -7,7 +7,7 @@ import MAPI from "./../../utils/meals-api";
 const CardHead = (props) => {
     if (props.meal_id) {
         return (
-            <h5 className="card-header text-center">Edit Meal: {props.meal_id}</h5>
+            <h5 className="card-header text-center">Edit Meal: Meal Name</h5>
         )
     } else {
         return (
@@ -81,7 +81,6 @@ class mForm extends Component {
         delete this.state.time
 
         setTimeout(() => {
-        
             MAPI.AddMeal(this.state)
                 .then((res) => {
                     console.log(res)
