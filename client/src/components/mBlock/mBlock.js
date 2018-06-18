@@ -13,7 +13,6 @@ const mBlock = (props) => (
             </div>
             </div>
             <p className="col-md-12">{props.details}</p>
-            <p>{props._id}</p>
             <div className="btn btn-primary" onClick={() => props.handleMealEdit(props._id)}>edit?</div>
 
         </div>
