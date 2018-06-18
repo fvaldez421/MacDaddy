@@ -11,12 +11,18 @@ export default {
     AddMeal: function (meal) {
         return axios.post("/api/meals", meal)
             .then(function (response) {
+                return response;
             })
     },
     // Gets all meals belonging to user
-    GetMeals: function (user_id) {
-        return axios.post("/api/meals/user/", user_id)
-            .then(function (response) {
+    GetMeals: function (user_id, date) {
+        return axios.get("/api/meals/user", {
+                params: {
+                    user_id,
+                    date
+                }
+            }).then(function (response) {
+                return response;
             })
     },
     // Gets individual meal for details
