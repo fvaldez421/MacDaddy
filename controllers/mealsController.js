@@ -10,8 +10,10 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findByUser: function (req, res) {
+    console.log("Getting meals for: ")
+    console.log(req.query);
     db.Meal
-      .find({ "user": req.query })
+      .find({ "user_id": req.query.user_id, "date": req.query.date })
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
