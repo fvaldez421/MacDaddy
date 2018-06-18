@@ -111,6 +111,7 @@ class Meals extends Component {
             meals: [ //Will be replaced with result from call to DB
                 {
                     name: "Fried Chicken",
+                    user_id: "12345678876587",
                     _id: "8765434567",
                     dateCode: 1528913342379,
                     detail: "KFC two piece, leg and thigh with some mashed potates",
@@ -122,6 +123,7 @@ class Meals extends Component {
                 },
                 {
                     name: "Pizza",
+                    user_id: "1234567898765",
                     _id: "4598722233",
                     dateCode: 1528914242000,
                     detail: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
