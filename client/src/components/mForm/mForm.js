@@ -4,71 +4,48 @@ import "react-times/css/classic/default.css";
 import TP from "react-times";
 import MAPI from "./../../utils/meals-api";
 
+const CardHead = (props) => {
+    if (props.meal_id) {
+        return (
+            <h5 className="card-header text-center">Edit Meal: {props.meal_id}</h5>
+        )
+    } else {
+        return (
+            <h5 className="card-header text-center">Add Meal</h5>
+        )
+    }
+}
 
 class mForm extends Component {
-    CardHead = () => {
-        if (this.props.meal_id) {
-            return (
-                <h5 className="card-header text-center">Edit Meal: {this.props.meal_id}</h5>
-            )
-        } else {
-            return (
-                <h5 className="card-header text-center">Add Meal</h5>
-            )
-        }
-    }
+
     constructor(props) {
         super(props);
         this.state = {
             time: null, // Will be set to props if New Meal, automatically sets meridiem too
-                                        // Will be deleted upon form submit, then reset if submit is unsuccessful
+                        // Will be deleted upon form submit, then reset if submit is unsuccessful
             meridiem: null, // Used to update clock. Will also be deleted upon form submit, ^^^^ 
+            
+            // All keys below will be pushed into DB as a meal
             user_id: null, // Will be set to this.props.user_id if new meal form
-            date: null,
-            dateCode: null, // Will be null if new meal, set onTimeChange, time and meridiem are added
+            date: "",
+            dateCode: undefined, // Will be null if new meal, set onTimeChange, time and meridiem are added
             name: "",
             detail: "",
-            totFat: "", // Not a nested object, should be eq to all fats added together if appl.
-                satFat: "",
-                transFat: "",
-                polyUnsatFat: "",
-                monoUnsatFat: "",
-            totCarb: "", // Not a nested object, should be eq to all carbs added together if appl.
-                fibCarb: "",
-                sugCarb: "",
-                otherCarb: "",
-            prot: "",
-            sodium: "",
-            potas: "",
-            minCals: "",
-            maintCals: "",
-            maxCals: ""
+            totFat: undefined, // Not a nested object, should be eq to all fats added together if appl.
+                satFat: undefined,
+                transFat: undefined,
+                polyUnsatFat: undefined,
+                monoUnsatFat: undefined,
+            totCarb: undefined, // Not a nested object, should be eq to all carbs added together if appl.
+                fibCarb: undefined,
+                sugCarb: undefined,
+                otherCarb: undefined,
+            prot: undefined,
+            sodium: undefined,
+            potas: undefined,
+            totCals: undefined
         }
     }
-    componentDidMount() {
-        if (this.props.edit) {
-            MAPI.ThisMeal(this.props.meal_id)
-                .then(res => {
-                    console.log(res.data[0])
-                })
-        } else {
-            this.setState({ 
-                user_id: this.props.user_id,
-                time: this.props.time,
-                meridiem: this.props.meridiem
-            })
-        }
-    }
-    componentWillReceiveProps() {
-        if (!this.props.edit) {
-            // console.log(this.props)
-            // this.setState({ 
-            //     user_id: this.props.user_id,
-            //     time: this.props.time,
-            //     meridiem: this.props.meridiem
-            // })
-        }
-    };
     onTimeChange(time) { // Belongs to TimePicker Component
         time.replace(/ /g, "");
         this.setState({
@@ -91,19 +68,25 @@ class mForm extends Component {
         let SavedMeridiem = this.state.meridiem;
 
         this.setState({
-            date: this.props.date,
-            dateCode: Date.parse(
-                new Date(
-                    this.props.date + " " + this.state.time + " " + this.state.meridiem
-                )
+            date: (this.props.date).toString(),
+            dateCode: parseInt(
+                Date.parse(
+                    new Date(
+                        this.props.date + " " + this.state.time + " " + this.state.meridiem
+                    )
+                ), 10
             )
         })
-        console.log(this.props.date + " " + this.state.time + " " + this.state.meridiem)
         delete this.state.meridiem
         delete this.state.time
+
         setTimeout(() => {
-            console.log(new Date(this.state.dateCode))
-            console.log(this.state.dateCode);
+        
+            MAPI.AddMeal(this.state)
+                .then((res) => {
+                    console.log(res)
+                }).catch(err => console.log(err))
+                
             console.log(this.state)
             this.setState({ 
                 time: SavedTime,
@@ -112,15 +95,38 @@ class mForm extends Component {
         }, 100)
         
     }
-    showFats = () => {
-
+    componentDidMount() {
+        if (this.props.edit) {
+            this.PopulateForm();
+        } else {
+            this.setState({ 
+                user_id: this.props.user_id,
+                time: this.props.time,
+                meridiem: this.props.meridiem
+            })
+        }
+    }
+    componentWillReceiveProps() {
+        this.setState({
+            user_id: this.props.user_id
+        })
+        if (this.props.edit) {
+            this.PopulateForm();
+        }
+    }
+    async PopulateForm() {
+    
+        await MAPI.ThisMeal(this.props.meal_id)
+        .then(res => {
+            console.log(res.data[0])
+        })
     }
 
     render() {
         return (
             <div className="text-left">
                 <div className="card">
-                    {this.CardHead()}
+                    <CardHead meal_id={this.props.meal_id} />
                     <ul className="list-group list-group-flush">
                         <div className="list-group-item">
                             <div className="row">
@@ -147,28 +153,19 @@ class mForm extends Component {
                                         onMeridiemChange={this.onMeridiemChange.bind(this)}
                                     />
                                 </div>
-                                {/* <div className="col-sm-8">
-                                    <input
-                                        type="datetime-local"
-                                        name="time"
-                                        value={this.state.dateCode}
-                                        onChange={(e) => {console.log(e.target)}}
-                                        className="form-control dailySets"
-                                        placeholder="Meal Time"
-                                    />
-                                </div> */}
+                                
                             </div>
                         </div>
 
                         <div className="list-group-item">
                             <h6 className="card-subtitle keys">Macros: <span className="noBold">(Click for subcategories)</span></h6>
                             <div className="form-group row dailySets">
-                                <label htmlFor="fatMac" className="col-sm-8 keys" onClick={() => this.showFats()}>Fat: </label>
+                                <label htmlFor="totFat" className="col-sm-8 keys" onClick={() => this.showFats()}>Fat: </label>
                                 <div className="col-sm-4">
                                     <input
                                         type="text"
-                                        name="fatMac"
-                                        value={this.state.fatMac}
+                                        name="totFat"
+                                        value={this.state.totFat}
                                         onChange={this.handleInputChange}
                                         className="form-control dailySets"
                                         placeholder="Grams of Fat"
@@ -176,68 +173,82 @@ class mForm extends Component {
                                 </div>
                             </div>
                             <div className="form-group row dailySets">
-                                <label htmlFor="carbMac" className="col-sm-8 keys">Carbs: </label>
+                                <label htmlFor="totCarb" className="col-sm-8 keys">Carbs: </label>
                                 <div className="col-sm-4">
                                     <input
                                         type="text"
-                                        name="carbMac"
-                                        value={this.state.carbMac}
+                                        name="totCarb"
+                                        value={this.state.totCarb}
                                         onChange={this.handleInputChange}
                                         className="form-control dailySets"
                                         placeholder="Grams of Carbs"
                                     />
                                 </div>
                             </div>
-                            {/* <div className="form-group row dailySets">
-                                <label htmlFor="fibMac" className="col-sm-8 keys">Fiber:</label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="fibMac"
-                                        value={this.state.fibMac}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="Grams of Fiber"
-                                    />
-                                </div>
-                            </div> */}
-
-                            {/* <div className="form-group row dailySets">
-                                <label htmlFor="alcMac" className="col-sm-8 keys">Alhocol:</label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="alcMac"
-                                        value={this.state.alcMac}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="CC of Alochol"
-                                    />
-                                </div>
-                            </div> */}
+                            
                             <div className="form-group row dailySets">
-                                <label htmlFor="proMac" className="col-sm-8 keys">Protein: </label>
+                                <label htmlFor="prot" className="col-sm-8 keys">Protein: </label>
                                 <div className="col-sm-4">
                                     <input
                                         type="text"
-                                        name="proMac"
-                                        value={this.state.proMac}
+                                        name="prot"
+                                        value={this.state.prot}
                                         onChange={this.handleInputChange}
                                         className="form-control dailySets"
                                         placeholder="Grams of Protein"
                                     />
                                 </div>
                             </div>
+                            <div className="form-group row dailySets">
+                                <label htmlFor="sodium" className="col-sm-8 keys">Sodium: </label>
+                                <div className="col-sm-4">
+                                    <input
+                                        type="text"
+                                        name="sodium"
+                                        value={this.state.sodium}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Grams of Sodium"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group row dailySets">
+                                <label htmlFor="potas" className="col-sm-8 keys">Potassium: </label>
+                                <div className="col-sm-4">
+                                    <input
+                                        type="text"
+                                        name="potas"
+                                        value={this.state.potas}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Grams of Potassium"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group row dailySets">
+                                <label htmlFor="totCals" className="col-sm-8 keys">Total Cals: </label>
+                                <div className="col-sm-4">
+                                    <input
+                                        type="text"
+                                        name="totCals"
+                                        value={this.state.totCals}
+                                        onChange={this.handleInputChange}
+                                        className="form-control dailySets"
+                                        placeholder="Calories"
+                                    />
+                                </div>
+                            </div>
+
                         </div>
                         <div className="list-group-item">
                             <div className="row">
-                                <h6 htmlFor="desc" className="col-sm-4 keys">Description:</h6>
+                                <h6 htmlFor="detail" className="col-sm-4 keys">Description:</h6>
                                 <div className="col-sm-8">
                                     <textarea
                                         rows="3"
                                         type="text"
-                                        name="desc"
-                                        value={this.state.desc}
+                                        name="detail"
+                                        value={this.state.detail}
                                         onChange={this.handleInputChange}
                                         className="form-control dailySets"
                                         placeholder="Meal Description"
@@ -245,64 +256,6 @@ class mForm extends Component {
                                 </div>
                             </div>
                         </div>
-                        {/*
-                        <div className="list-group-item">
-                            <h5 className="card-subtitle keys">Calories:</h5>
-                            <div className="form-group row dailySets">
-                                <label htmlFor="fatCal" className="col-sm-8 keys">Fat:</label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="fatCal"
-                                        value={this.state.fatCal}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="Cal's of Fat"
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-group row dailySets">
-                                <label htmlFor="proCal" className="col-sm-8 keys">Protein: </label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="proCal"
-                                        value={this.state.proCal}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="Cal's of Protein"
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-group row dailySets">
-                                <label htmlFor="maintCal" className="col-sm-8 keys">Maintenance: </label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="maintCal"
-                                        value={this.state.maintCal}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="Maint Calories"
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-group row dailySets">
-                                <label htmlFor="tarCal" className="col-sm-8 keys">Target: </label>
-                                <div className="col-sm-4">
-                                    <input
-                                        type="text"
-                                        name="tarCal"
-                                        value={this.state.tarCal}
-                                        onChange={this.handleInputChange}
-                                        className="form-control dailySets"
-                                        placeholder="Target Calories"
-                                    />
-                                </div>
-                            </div>
-                            
-                        </div>*/}
-
                         <button onClick={(e) => this.handleFormSubmit(e)} id="submit" className="btn btn-primary">Submit</button>
                     </ul>
 
