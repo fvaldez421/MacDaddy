@@ -3,9 +3,8 @@ const Schema = mongoose.Schema;
 
 const mealSchema = new Schema({
     user_id: String,
+    date: String,
     dateCode: Number,
-    mealDate: String,
-    mealTime: String,
     name: String,
     detail: String,
     totFat: Number, // Not a nested object
@@ -19,7 +18,8 @@ const mealSchema = new Schema({
         otherCarb: Number,
     prot: Number,
     sodium: Number,
-    potas: Number
+    potas: Number,
+    totCals: Number
 });
 
 const Meal = mongoose.model("Meal", mealSchema);
