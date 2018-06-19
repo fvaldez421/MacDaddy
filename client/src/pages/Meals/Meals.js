@@ -120,18 +120,6 @@ class Meals extends Component {
                     carbMac: "120",
                     fatCal: "400",
                     proCal: "100"
-                },
-                {
-                    name: "Pizza",
-                    user_id: "1234567898765",
-                    _id: "4598722233",
-                    dateCode: 1528914242000,
-                    detail: "Mountain Mikes Pizza, peperroni and some garlic bread, 12oz coke",
-                    fatMac: "80",
-                    proMac: "50",
-                    carbMac: "600",
-                    fatCal: "554",
-                    proCal: "250"
                 }
             ]
         }
@@ -157,9 +145,22 @@ class Meals extends Component {
         MAPI.GetMeals(user_id, date)
             .then(res => {
                 console.log(res.data)
-                this.setState({
-                    meals: res.data
-                })
+                if (res.data[0]){
+                    this.setState({
+                        meals: res.data
+                    })
+                }else {
+                    this.setState({
+                        meals: [
+                            {
+                                name: "No Meals Yet :(",
+                                detail: "Enter a meal for today!",
+                                dateCode: 1528913342379
+
+                            }
+                        ]
+                    })
+                }
             })
     }
     onChange = (CALdate) => { // onChange belongs to Calendar Component
@@ -176,6 +177,7 @@ class Meals extends Component {
         })
         setTimeout(() => {
             console.log(this.state.date);
+            this.getMeals()
         }, 50);
     }
 
@@ -220,7 +222,7 @@ class Meals extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 mb-5">
                                 <div className="card">
                                     <h5 className="card-header">{this.state.headDate}</h5>
                                     <ul className="list-group list-group-flush">
