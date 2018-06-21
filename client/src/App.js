@@ -54,6 +54,7 @@ class App extends Component {
   }
   
   componentDidMount() {
+    this.props.auth.handleAuthentication()
     this.getUser();
   }
 
@@ -63,7 +64,7 @@ class App extends Component {
         <Router>
           <div>
             <Header {...this.props} />
-            <Route exact path="/" component={Welcome} />
+            <Route exact path="/" render={() => this.props.auth.isAuthenticated() ? <Home {...this.state} /> : <Welcome />} />
             <Route path="/home" render={() => this.props.auth.isAuthenticated() ? <Home {...this.state} /> : <Welcome />} />
             <Route path="/meals" render={() => <Meals {...this.state} />} />
             <Route path="/callback" component={Callback} />

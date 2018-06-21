@@ -17,9 +17,6 @@ let initialState = {
     auth
 }
 
-
-
-
 window.setState(initialState);
 
 registerServiceWorker();
