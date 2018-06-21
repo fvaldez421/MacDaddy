@@ -108,6 +108,7 @@ class Meals extends Component {
             headDate: this.today.headUseDate(),
             edit: false,
             meal_id: null,
+            meal: null,
             meals: [ //Will be replaced with result from call to DB
                 {
                     name: "Fried Chicken",
@@ -134,7 +135,7 @@ class Meals extends Component {
             this.setState({ user_id: this.props.user._id })
         }, 50);
         setTimeout(() => {
-            console.log(this.state.user_id)
+            // console.log(this.state.user_id)
             this.getMeals();
         }, 100);
     }
@@ -182,10 +183,16 @@ class Meals extends Component {
     }
 
     handleMealEdit = (_id) => { // This is fired by edit meal button on list, changes "New Meal" to "Edit Meal",
-        this.setState({         // used meal _id to find meal in Meals Collection and populates form
-            edit: true, 
-            meal_id: _id
-        });
+        console.log(_id)
+        MAPI.ThisMeal(_id)
+        .then(res => {
+            this.setState({         // used meal _id to find meal in Meals Collection and populates form
+                edit: true, 
+                meal_id: _id,
+                meal: res.data                
+            });
+            console.log(res.data)
+        }).catch(err => console.log(err))
     }
 
     render() {
@@ -216,6 +223,7 @@ class Meals extends Component {
                                     time={this.state.time}
                                     meridiem={this.state.meridiem}
                                     meal_id={this.state.meal_id}
+                                    meal={this.state.meal}
                                     edit={this.state.edit}
                                     dateParse={dateParse}
                                 />

@@ -7,7 +7,7 @@ import MAPI from "./../../utils/meals-api";
 const CardHead = (props) => {
     if (props.meal_id) {
         return (
-            <h5 className="card-header text-center">Edit Meal: Meal Name</h5>
+            <h5 className="card-header text-center">Edit Meal: {props.mealName}</h5>
         )
     } else {
         return (
@@ -81,11 +81,18 @@ class mForm extends Component {
         delete this.state.time
 
         setTimeout(() => {
-            MAPI.AddMeal(this.state)
-                .then((res) => {
-                    console.log(res)
-                }).catch(err => console.log(err))
-                
+            
+            if (this.props.edit) {
+                console.log("Edit")
+                MAPI.UpdateMeal(this.props.meal_id, this.state)
+                    .then(res => {console.log(res)})
+                    .catch(err => console.log(err))
+            }else {
+                console.log("New Entry")
+                MAPI.AddMeal(this.state)
+                    .then(res => {console.log(res)})
+                    .catch(err => console.log(err))
+            }
             console.log(this.state)
             this.setState({ 
                 time: SavedTime,
@@ -95,37 +102,52 @@ class mForm extends Component {
         
     }
     componentDidMount() {
-        if (this.props.edit) {
-            this.PopulateForm();
-        } else {
+        if (!this.props.edit) {
             this.setState({ 
                 user_id: this.props.user_id,
                 time: this.props.time,
                 meridiem: this.props.meridiem
             })
-        }
+        } 
     }
-    componentWillReceiveProps() {
-        this.setState({
-            user_id: this.props.user_id
-        })
-        if (this.props.edit) {
+    componentDidUpdate(prevProps) {
+        if (prevProps.meal_id !== this.props.meal_id) {
             this.PopulateForm();
         }
     }
-    async PopulateForm() {
-    
-        await MAPI.ThisMeal(this.props.meal_id)
-        .then(res => {
-            console.log(res.data[0])
-        })
+    PopulateForm() {
+        // Sets state of all form fields to those of the selected meal
+        MAPI.ThisMeal(this.props.meal_id)
+            .then(res => {
+                console.log(res.data)
+                    this.setState({
+                    user_id: res.data.user_id,
+                    date: res.data.date,
+                    dateCode: res.data.dateCode,
+                    name: res.data.name,
+                    detail: res.data.detail,
+                    totFat: res.data.totFat,
+                        satFat: res.data.satFat,
+                        transFat: res.data.transFat,
+                        polyUnsatFat: res.data.polyUnsatFat,
+                        monoUnsatFat: res.data.monoUnsatFat,
+                    totCarb: res.data.totCarb, 
+                        fibCarb: res.data.fibCarb,
+                        sugCarb: res.data.sugCarb,
+                        otherCarb: res.data.otherCarb,
+                    prot: res.data.prot,
+                    sodium: res.data.sodium,
+                    potas: res.data.potas,
+                    totCals: res.data.totCals
+                })
+            }).catch(err => console.log(err)) 
     }
 
     render() {
         return (
             <div className="text-left">
                 <div className="card">
-                    <CardHead meal_id={this.props.meal_id} />
+                    <CardHead meal_id={this.props.meal_id} mealName={this.state.name}/>
                     <ul className="list-group list-group-flush">
                         <div className="list-group-item">
                             <div className="row">
