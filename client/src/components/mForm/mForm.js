@@ -99,21 +99,27 @@ class mForm extends Component {
                 meridiem: SavedMeridiem
             })
         }, 100)
-        
     }
     componentDidMount() {
-        if (!this.props.edit) {
+        setTimeout(() => {
             this.setState({ 
                 user_id: this.props.user_id,
                 time: this.props.time,
                 meridiem: this.props.meridiem
             })
-        } 
+        }, 100);  
     }
     componentDidUpdate(prevProps) {
         if (prevProps.meal_id !== this.props.meal_id) {
             this.PopulateForm();
         }
+    }
+    componentWillReceiveProps() {
+        setTimeout(() => {
+            this.setState({
+                user_id: this.props.user_id
+            })
+        }, 100);
     }
     PopulateForm() {
         // Sets state of all form fields to those of the selected meal
