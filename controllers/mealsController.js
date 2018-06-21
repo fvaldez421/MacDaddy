@@ -10,7 +10,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findByUser: function (req, res) {
-    console.log("Getting meals for: ")
     console.log(req.query);
     db.Meal
       .find({ "user_id": req.query.user_id, "date": req.query.date })
