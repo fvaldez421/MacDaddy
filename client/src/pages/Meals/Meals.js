@@ -96,7 +96,9 @@ function dateParse(date) {
 class Meals extends Component {
     constructor(props) {
         super(props);
-        this.handleMealEdit = this.handleMealEdit.bind(this);        
+        this.handleMealEdit = this.handleMealEdit.bind(this); 
+        this.handleMealDelete = this.handleMealDelete.bind(this);
+        this.updatePage = this.updatePage.bind(this);       
         this.today = new dateParse(new Date()); // Sets initial date for Calendar and values sent to "New Meal" form
         this.state = {
             user_id: null,
@@ -125,10 +127,8 @@ class Meals extends Component {
             ]
         }
     }
-
     componentDidMount() {
         this.props.getUser(); // getUser() lives in and is bound to App.js, populates User object in props.
-        
     }
     componentWillReceiveProps() {
         setTimeout(() => {
@@ -139,7 +139,9 @@ class Meals extends Component {
             this.getMeals();
         }, 100);
     }
-
+    updatePage() {
+        this.forceUpdate();
+    }
     getMeals() {
         let user_id = (this.state.user_id).toString();
         let date = (this.state.date).toString();
@@ -181,18 +183,20 @@ class Meals extends Component {
             this.getMeals()
         }, 50);
     }
-
     handleMealEdit = (_id) => { // This is fired by edit meal button on list, changes "New Meal" to "Edit Meal",
         console.log(_id)
         MAPI.ThisMeal(_id)
         .then(res => {
-            this.setState({         // used meal _id to find meal in Meals Collection and populates form
+            this.setState({ // used meal _id to find meal in Meals Collection and populates form
                 edit: true, 
                 meal_id: _id,
                 meal: res.data                
             });
             console.log(res.data)
         }).catch(err => console.log(err))
+    }
+    handleMealDelete = (_id) => {
+        console.log("Deleting")
     }
 
     render() {
@@ -225,6 +229,7 @@ class Meals extends Component {
                                     meal_id={this.state.meal_id}
                                     meal={this.state.meal}
                                     edit={this.state.edit}
+                                    updatePage={this.updatePage}
                                     dateParse={dateParse}
                                 />
                             </div>

@@ -81,16 +81,21 @@ class mForm extends Component {
         delete this.state.time
 
         setTimeout(() => {
-            
             if (this.props.edit) {
                 console.log("Edit")
                 MAPI.UpdateMeal(this.props.meal_id, this.state)
-                    .then(res => {console.log(res)})
+                    .then(res => {
+                        console.log(res)
+                        this.props.updatePage()
+                    })
                     .catch(err => console.log(err))
             }else {
                 console.log("New Entry")
                 MAPI.AddMeal(this.state)
-                    .then(res => {console.log(res)})
+                    .then(res => {
+                        console.log(res);
+                        this.props.updatePage()
+                    })
                     .catch(err => console.log(err))
             }
             console.log(this.state)
