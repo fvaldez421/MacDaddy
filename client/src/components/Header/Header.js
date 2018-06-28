@@ -28,6 +28,14 @@ class Header extends Component {
     componentDidMount() {
         this.setState({ loggedIn: this.props.auth.isAuthenticated() })
     }
+    componentWillUpdate() {
+        return true;
+    }
+    handleLogoOut() {
+        this.props.auth.logout(); 
+        this.forceUpdate();
+    }
+
     render() {
         return (
             <div className="container">
@@ -35,7 +43,7 @@ class Header extends Component {
                     <h2>This is MacDaddy (Header)</h2>
                     {
                         this.state.loggedIn ?
-                            <div className="btn btn-primary" onClick={() => { this.props.auth.logout(); this.forceUpdate() }}>Logout</div>
+                            <div className="btn btn-primary" onClick={() => {this.handleLogoOut()}}>Logout</div>
                             :
                             <div className="btn btn-primary" onClick={() => this.props.auth.login()}>Login</div>
                     }
