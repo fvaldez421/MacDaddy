@@ -9,10 +9,10 @@ import jwtDecode from "jwt-decode";
 export default class Auth {
 
   auth0 = new auth0.WebAuth({
-    domain: "frank-valdez.auth0.com",
+    domain: "fvaldez.auth0.com",
     clientID: Keys.auth0.clientID,
     redirectUri: window.location.origin + "/callback",
-    audience: "https://frank-valdez.auth0.com/userinfo",
+    audience: "https://fvaldez.auth0.com/userinfo",
     responseType: "token id_token",
     scope: "openid profile email"
   });
