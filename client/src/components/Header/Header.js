@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import './Header.css';
 
@@ -21,37 +21,22 @@ const Links = (loggedIn) => {
     )
 }
 
-class Header extends Component {
-    state = {
-        loggedIn: false
-    }
-    componentDidMount() {
-        this.setState({ loggedIn: this.props.auth.isAuthenticated() })
-    }
-    componentWillUpdate() {
-        return true;
-    }
-    handleLogoOut() {
-        this.props.auth.logout(); 
-        this.forceUpdate();
-    }
-
-    render() {
+const Header = (props) => {
         return (
             <div className="container">
                 <div className="jumbotron">
                     <h2>This is MacDaddy (Header)</h2>
                     {
-                        this.state.loggedIn ?
-                            <div className="btn btn-primary" onClick={() => {this.handleLogoOut()}}>Logout</div>
+                        props.auth.isAuthenticated() ?
+                            <div className="btn btn-primary" onClick={() => {props.auth.logout()}}>Logout</div>
                             :
-                            <div className="btn btn-primary" onClick={() => this.props.auth.login()}>Login</div>
+                            <div className="btn btn-primary" onClick={() => props.auth.login()}>Login</div>
                     }
                 </div>
-                {Links(this.state.loggedIn)}
+                {Links(props.auth.isAuthenticated())}
             </div>
         )
-    }
+    
 }
 
 export default Header;
